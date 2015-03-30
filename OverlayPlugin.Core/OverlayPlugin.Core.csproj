@@ -136,7 +136,9 @@
     <Content Include="resources\elizar2006_miniparse.jpg">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <Content Include="resources\enmity.en.html" />
+    <Content Include="resources\enmity.en.html">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="resources\enmity.html">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
