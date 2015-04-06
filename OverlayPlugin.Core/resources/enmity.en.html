@@ -4,7 +4,6 @@
   <title></title>
   <style>
 
-
     * {
       /* フォント （一部のフォントは上手く適用されない） */
       font-family: "Meiryo";
@@ -175,7 +174,7 @@
 
     // なにもターゲットしてない時のテンプレート
     var noTargetDefine =
-         "<div id='target_name_plate'>ターゲット: <span class='target_body'>No target</span></div>";
+         "<div id='target_name_plate'>Target: <span class='target_body'>No target</span></div>";
 
     // 関数にする場合のサンプル
     var _targetDefine = function (target) {
@@ -333,7 +332,6 @@
         console.log("updateTarget: 'targetDefine' should be string or function that returns string.");
         return;
       }
-
       // テキスト設定
       if (!useHTMLTargetDefine) {
         var hoge = data.Enmity.Target;

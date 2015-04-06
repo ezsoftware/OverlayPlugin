@@ -124,6 +124,8 @@
     <Compile Include="Util.cs" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="addons\EnmityOverlay-LICENSE.txt" />
+    <Content Include="addons\EnmityOverlay-README.txt" />
     <Content Include="addons\EnmityOverlay.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
