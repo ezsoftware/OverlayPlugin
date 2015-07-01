@@ -485,6 +485,10 @@ namespace RainbowMage.OverlayPlugin
                 if (xivProc == null && DateTime.Now - lastTry > tryInterval)
                 {
                     xivProc = Process.GetProcessesByName("ffxiv").FirstOrDefault();
+                    if (xivProc == null)
+                    {
+                        xivProc = Process.GetProcessesByName("ffxiv_dx11").FirstOrDefault();
+                    }
                     lastTry = DateTime.Now;
                 }
 
