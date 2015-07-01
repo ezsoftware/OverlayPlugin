@@ -1,7 +1,7 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 2013
-VisualStudioVersion = 12.0.30723.0
+VisualStudioVersion = 12.0.31101.0
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OverlayPlugin.Core", "OverlayPlugin.Core\OverlayPlugin.Core.csproj", "{DD6D2A9A-4AD4-47B8-A1D0-C8608EA37092}"
 EndProject
@@ -31,6 +31,8 @@ Global
 		Debug|x86 = Debug|x86
 		Release|x64 = Release|x64
 		Release|x86 = Release|x86
+		Streamer|x64 = Streamer|x64
+		Streamer|x86 = Streamer|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
 		{DD6D2A9A-4AD4-47B8-A1D0-C8608EA37092}.Debug|x64.ActiveCfg = Debug|Any CPU
@@ -41,6 +43,9 @@ Global
 		{DD6D2A9A-4AD4-47B8-A1D0-C8608EA37092}.Release|x64.Build.0 = Release|Any CPU
 		{DD6D2A9A-4AD4-47B8-A1D0-C8608EA37092}.Release|x86.ActiveCfg = Release|Any CPU
 		{DD6D2A9A-4AD4-47B8-A1D0-C8608EA37092}.Release|x86.Build.0 = Release|Any CPU
+		{DD6D2A9A-4AD4-47B8-A1D0-C8608EA37092}.Streamer|x64.ActiveCfg = Streamer|Any CPU
+		{DD6D2A9A-4AD4-47B8-A1D0-C8608EA37092}.Streamer|x64.Build.0 = Streamer|Any CPU
+		{DD6D2A9A-4AD4-47B8-A1D0-C8608EA37092}.Streamer|x86.ActiveCfg = Streamer|Any CPU
 		{E2BC6483-B966-4A4A-B4CC-D50A4BD73AF3}.Debug|x64.ActiveCfg = Debug|Any CPU
 		{E2BC6483-B966-4A4A-B4CC-D50A4BD73AF3}.Debug|x64.Build.0 = Debug|Any CPU
 		{E2BC6483-B966-4A4A-B4CC-D50A4BD73AF3}.Debug|x86.ActiveCfg = Debug|Any CPU
@@ -49,12 +54,17 @@ Global
 		{E2BC6483-B966-4A4A-B4CC-D50A4BD73AF3}.Release|x64.Build.0 = Release|Any CPU
 		{E2BC6483-B966-4A4A-B4CC-D50A4BD73AF3}.Release|x86.ActiveCfg = Release|Any CPU
 		{E2BC6483-B966-4A4A-B4CC-D50A4BD73AF3}.Release|x86.Build.0 = Release|Any CPU
+		{E2BC6483-B966-4A4A-B4CC-D50A4BD73AF3}.Streamer|x64.ActiveCfg = Streamer|Any CPU
+		{E2BC6483-B966-4A4A-B4CC-D50A4BD73AF3}.Streamer|x64.Build.0 = Streamer|Any CPU
+		{E2BC6483-B966-4A4A-B4CC-D50A4BD73AF3}.Streamer|x86.ActiveCfg = Streamer|Any CPU
 		{B9BBE478-8FD7-43D9-BD50-C806B1EC672F}.Debug|x64.ActiveCfg = Debug|x64
 		{B9BBE478-8FD7-43D9-BD50-C806B1EC672F}.Debug|x64.Build.0 = Debug|x64
 		{B9BBE478-8FD7-43D9-BD50-C806B1EC672F}.Debug|x86.ActiveCfg = Debug|x86
 		{B9BBE478-8FD7-43D9-BD50-C806B1EC672F}.Debug|x86.Build.0 = Debug|x86
 		{B9BBE478-8FD7-43D9-BD50-C806B1EC672F}.Release|x64.ActiveCfg = Release|x64
 		{B9BBE478-8FD7-43D9-BD50-C806B1EC672F}.Release|x86.ActiveCfg = Release|x86
+		{B9BBE478-8FD7-43D9-BD50-C806B1EC672F}.Streamer|x64.ActiveCfg = Streamer|x64
+		{B9BBE478-8FD7-43D9-BD50-C806B1EC672F}.Streamer|x86.ActiveCfg = Streamer|x86
 		{423FCBFC-DD3B-415F-BE29-7A4A46614B79}.Debug|x64.ActiveCfg = Debug|Any CPU
 		{423FCBFC-DD3B-415F-BE29-7A4A46614B79}.Debug|x64.Build.0 = Debug|Any CPU
 		{423FCBFC-DD3B-415F-BE29-7A4A46614B79}.Debug|x86.ActiveCfg = Debug|Any CPU
@@ -63,6 +73,9 @@ Global
 		{423FCBFC-DD3B-415F-BE29-7A4A46614B79}.Release|x64.Build.0 = Release|Any CPU
 		{423FCBFC-DD3B-415F-BE29-7A4A46614B79}.Release|x86.ActiveCfg = Release|Any CPU
 		{423FCBFC-DD3B-415F-BE29-7A4A46614B79}.Release|x86.Build.0 = Release|Any CPU
+		{423FCBFC-DD3B-415F-BE29-7A4A46614B79}.Streamer|x64.ActiveCfg = Streamer|Any CPU
+		{423FCBFC-DD3B-415F-BE29-7A4A46614B79}.Streamer|x64.Build.0 = Streamer|Any CPU
+		{423FCBFC-DD3B-415F-BE29-7A4A46614B79}.Streamer|x86.ActiveCfg = Streamer|Any CPU
 		{5D15AD79-050C-4780-986E-0F1138EA1D40}.Debug|x64.ActiveCfg = Debug|x64
 		{5D15AD79-050C-4780-986E-0F1138EA1D40}.Debug|x64.Build.0 = Debug|x64
 		{5D15AD79-050C-4780-986E-0F1138EA1D40}.Debug|x86.ActiveCfg = Debug|x86
@@ -71,6 +84,10 @@ Global
 		{5D15AD79-050C-4780-986E-0F1138EA1D40}.Release|x64.Build.0 = Release|x64
 		{5D15AD79-050C-4780-986E-0F1138EA1D40}.Release|x86.ActiveCfg = Release|x86
 		{5D15AD79-050C-4780-986E-0F1138EA1D40}.Release|x86.Build.0 = Release|x86
+		{5D15AD79-050C-4780-986E-0F1138EA1D40}.Streamer|x64.ActiveCfg = Streamer|x64
+		{5D15AD79-050C-4780-986E-0F1138EA1D40}.Streamer|x64.Build.0 = Streamer|x64
+		{5D15AD79-050C-4780-986E-0F1138EA1D40}.Streamer|x86.ActiveCfg = Streamer|x86
+		{5D15AD79-050C-4780-986E-0F1138EA1D40}.Streamer|x86.Build.0 = Streamer|x86
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

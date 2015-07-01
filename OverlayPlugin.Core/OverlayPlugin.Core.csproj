@@ -30,6 +30,15 @@
     <ErrorReport>prompt</ErrorReport>
     <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Streamer|AnyCPU'">
+    <OutputPath>bin\Streamer\</OutputPath>
+    <DefineConstants>TRACE;STREAMER</DefineConstants>
+    <Optimize>true</Optimize>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>AnyCPU</PlatformTarget>
+    <ErrorReport>prompt</ErrorReport>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="Advanced Combat Tracker, Version=3.1.5.246, Culture=neutral, PublicKeyToken=a946b61e93d97868, processorArchitecture=x86">
       <SpecificVersion>False</SpecificVersion>
