@@ -36,8 +36,7 @@ namespace RainbowMage.HtmlRenderer
             EndRender();
 
             var cefWindowInfo = CefWindowInfo.Create();
-            cefWindowInfo.SetAsPopup(IntPtr.Zero, "MiniParse OBS Window");
-            cefWindowInfo.StyleEx = Xilium.CefGlue.Platform.Windows.WindowStyleEx.WS_EX_TOPMOST;
+            cefWindowInfo.SetAsWindowless(IntPtr.Zero, true);
 
             var cefBrowserSettings = new CefBrowserSettings();
             cefBrowserSettings.WindowlessFrameRate = maxFrameRate;
