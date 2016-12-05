@@ -146,8 +146,19 @@ namespace RainbowMage.OverlayPlugin.Overlays
             var json = this.overlay.CreateJsonData();
             if (!string.IsNullOrWhiteSpace(json))
             {
-                Clipboard.SetText("var ActXiv = " + json + ";");
+                Clipboard.SetText(json);
             }
+        }
+
+        private void buttonOpenDevTools_Click(object sender, EventArgs e)
+        {
+            this.overlay.Overlay.Renderer.showDevTools();
+        }
+
+        private void buttonOpenDevTools_RClick(object sender, System.Windows.Forms.MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+                this.overlay.Overlay.Renderer.showDevTools(false);
         }
 
         private void buttonSpellTimerReloadBrowser_Click(object sender, EventArgs e)

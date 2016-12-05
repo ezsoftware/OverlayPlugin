@@ -41,8 +41,9 @@
             this.checkMiniParseClickthru = new System.Windows.Forms.CheckBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
-            this.buttonMiniParseReloadBrowser = new System.Windows.Forms.Button();
             this.buttonMiniParseCopyActXiv = new System.Windows.Forms.Button();
+            this.buttonMiniParseOpenDevTools = new System.Windows.Forms.Button();
+            this.buttonMiniParseReloadBrowser = new System.Windows.Forms.Button();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.textMiniParseUrl = new System.Windows.Forms.TextBox();
             this.buttonMiniParseSelectFile = new System.Windows.Forms.Button();
@@ -74,7 +75,7 @@
             this.tableLayoutPanel1.Controls.Add(this.label1, 0, 3);
             this.tableLayoutPanel1.Controls.Add(this.checkMiniParseVisible, 1, 0);
             this.tableLayoutPanel1.Controls.Add(this.checkMiniParseClickthru, 1, 1);
-            this.tableLayoutPanel1.Controls.Add(this.panel1, 1, 10);
+            this.tableLayoutPanel1.Controls.Add(this.panel1, 0, 10);
             this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel2, 1, 3);
             this.tableLayoutPanel1.Controls.Add(this.comboMiniParseSortType, 1, 5);
             this.tableLayoutPanel1.Controls.Add(this.nudMaxFrameRate, 1, 6);
@@ -139,23 +140,18 @@
             // 
             // panel1
             // 
-            resources.ApplyResources(this.panel1, "panel1");
+            this.tableLayoutPanel1.SetColumnSpan(this.panel1, 2);
             this.panel1.Controls.Add(this.tableLayoutPanel3);
+            resources.ApplyResources(this.panel1, "panel1");
             this.panel1.Name = "panel1";
             // 
             // tableLayoutPanel3
             // 
             resources.ApplyResources(this.tableLayoutPanel3, "tableLayoutPanel3");
-            this.tableLayoutPanel3.Controls.Add(this.buttonMiniParseReloadBrowser, 1, 0);
             this.tableLayoutPanel3.Controls.Add(this.buttonMiniParseCopyActXiv, 0, 0);
+            this.tableLayoutPanel3.Controls.Add(this.buttonMiniParseOpenDevTools, 1, 0);
+            this.tableLayoutPanel3.Controls.Add(this.buttonMiniParseReloadBrowser, 2, 0);
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
-            // 
-            // buttonMiniParseReloadBrowser
-            // 
-            resources.ApplyResources(this.buttonMiniParseReloadBrowser, "buttonMiniParseReloadBrowser");
-            this.buttonMiniParseReloadBrowser.Name = "buttonMiniParseReloadBrowser";
-            this.buttonMiniParseReloadBrowser.UseVisualStyleBackColor = true;
-            this.buttonMiniParseReloadBrowser.Click += new System.EventHandler(this.buttonReloadBrowser_Click);
             // 
             // buttonMiniParseCopyActXiv
             // 
@@ -163,6 +159,21 @@
             this.buttonMiniParseCopyActXiv.Name = "buttonMiniParseCopyActXiv";
             this.buttonMiniParseCopyActXiv.UseVisualStyleBackColor = true;
             this.buttonMiniParseCopyActXiv.Click += new System.EventHandler(this.buttonCopyActXiv_Click);
+            // 
+            // buttonMiniParseOpenDevTools
+            // 
+            resources.ApplyResources(this.buttonMiniParseOpenDevTools, "buttonMiniParseOpenDevTools");
+            this.buttonMiniParseOpenDevTools.Name = "buttonMiniParseOpenDevTools";
+            this.buttonMiniParseOpenDevTools.UseVisualStyleBackColor = true;
+            this.buttonMiniParseOpenDevTools.Click += new System.EventHandler(this.buttonMiniParseOpenDevTools_Click);
+            this.buttonMiniParseOpenDevTools.MouseDown += new System.Windows.Forms.MouseEventHandler(this.buttonMiniParseOpenDevTools_RClick);
+            // 
+            // buttonMiniParseReloadBrowser
+            // 
+            resources.ApplyResources(this.buttonMiniParseReloadBrowser, "buttonMiniParseReloadBrowser");
+            this.buttonMiniParseReloadBrowser.Name = "buttonMiniParseReloadBrowser";
+            this.buttonMiniParseReloadBrowser.UseVisualStyleBackColor = true;
+            this.buttonMiniParseReloadBrowser.Click += new System.EventHandler(this.buttonReloadBrowser_Click);
             // 
             // tableLayoutPanel2
             // 
@@ -287,6 +298,7 @@
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
         private System.Windows.Forms.Button buttonMiniParseReloadBrowser;
+        private System.Windows.Forms.Button buttonMiniParseOpenDevTools;
         private System.Windows.Forms.Button buttonMiniParseCopyActXiv;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
         private System.Windows.Forms.TextBox textMiniParseUrl;

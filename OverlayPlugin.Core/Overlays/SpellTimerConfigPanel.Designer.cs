@@ -39,8 +39,9 @@
             this.checkBoxClickThru = new System.Windows.Forms.CheckBox();
             this.panel2 = new System.Windows.Forms.Panel();
             this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
-            this.buttonReloadBrowser = new System.Windows.Forms.Button();
             this.buttonCopyVariable = new System.Windows.Forms.Button();
+            this.buttonOpenDevTools = new System.Windows.Forms.Button();
+            this.buttonReloadBrowser = new System.Windows.Forms.Button();
             this.tableLayoutPanel6 = new System.Windows.Forms.TableLayoutPanel();
             this.textBoxUrl = new System.Windows.Forms.TextBox();
             this.buttonSpellTimerSelectFile = new System.Windows.Forms.Button();
@@ -68,7 +69,7 @@
             this.tableLayoutPanel4.Controls.Add(this.label10, 0, 3);
             this.tableLayoutPanel4.Controls.Add(this.checkBoxVisible, 1, 0);
             this.tableLayoutPanel4.Controls.Add(this.checkBoxClickThru, 1, 1);
-            this.tableLayoutPanel4.Controls.Add(this.panel2, 1, 8);
+            this.tableLayoutPanel4.Controls.Add(this.panel2, 0, 8);
             this.tableLayoutPanel4.Controls.Add(this.tableLayoutPanel6, 1, 3);
             this.tableLayoutPanel4.Controls.Add(this.label12, 1, 7);
             this.tableLayoutPanel4.Controls.Add(this.label1, 0, 5);
@@ -137,22 +138,17 @@
             // panel2
             // 
             resources.ApplyResources(this.panel2, "panel2");
+            this.tableLayoutPanel4.SetColumnSpan(this.panel2, 2);
             this.panel2.Controls.Add(this.tableLayoutPanel5);
             this.panel2.Name = "panel2";
             // 
             // tableLayoutPanel5
             // 
             resources.ApplyResources(this.tableLayoutPanel5, "tableLayoutPanel5");
-            this.tableLayoutPanel5.Controls.Add(this.buttonReloadBrowser, 1, 0);
             this.tableLayoutPanel5.Controls.Add(this.buttonCopyVariable, 0, 0);
+            this.tableLayoutPanel5.Controls.Add(this.buttonOpenDevTools, 1, 0);
+            this.tableLayoutPanel5.Controls.Add(this.buttonReloadBrowser, 2, 0);
             this.tableLayoutPanel5.Name = "tableLayoutPanel5";
-            // 
-            // buttonReloadBrowser
-            // 
-            resources.ApplyResources(this.buttonReloadBrowser, "buttonReloadBrowser");
-            this.buttonReloadBrowser.Name = "buttonReloadBrowser";
-            this.buttonReloadBrowser.UseVisualStyleBackColor = true;
-            this.buttonReloadBrowser.Click += new System.EventHandler(this.buttonSpellTimerReloadBrowser_Click);
             // 
             // buttonCopyVariable
             // 
@@ -160,6 +156,21 @@
             this.buttonCopyVariable.Name = "buttonCopyVariable";
             this.buttonCopyVariable.UseVisualStyleBackColor = true;
             this.buttonCopyVariable.Click += new System.EventHandler(this.buttonCopyVariable_Click);
+            // 
+            // buttonOpenDevTools
+            // 
+            resources.ApplyResources(this.buttonOpenDevTools, "buttonOpenDevTools");
+            this.buttonOpenDevTools.Name = "buttonOpenDevTools";
+            this.buttonOpenDevTools.UseVisualStyleBackColor = true;
+            this.buttonOpenDevTools.Click += new System.EventHandler(this.buttonOpenDevTools_Click);
+            this.buttonOpenDevTools.MouseDown += new System.Windows.Forms.MouseEventHandler(this.buttonOpenDevTools_RClick);
+            // 
+            // buttonReloadBrowser
+            // 
+            resources.ApplyResources(this.buttonReloadBrowser, "buttonReloadBrowser");
+            this.buttonReloadBrowser.Name = "buttonReloadBrowser";
+            this.buttonReloadBrowser.UseVisualStyleBackColor = true;
+            this.buttonReloadBrowser.Click += new System.EventHandler(this.buttonSpellTimerReloadBrowser_Click);
             // 
             // tableLayoutPanel6
             // 
@@ -253,6 +264,7 @@
         private System.Windows.Forms.Panel panel2;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel5;
         private System.Windows.Forms.Button buttonReloadBrowser;
+        private System.Windows.Forms.Button buttonOpenDevTools;
         private System.Windows.Forms.Button buttonCopyVariable;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel6;
         private System.Windows.Forms.TextBox textBoxUrl;

@@ -191,12 +191,23 @@ namespace RainbowMage.OverlayPlugin.Overlays
             }
         }
 
+        private void buttonMiniParseOpenDevTools_Click(object sender, EventArgs e)
+        {
+            this.overlay.Overlay.Renderer.showDevTools();
+        }
+
+        private void buttonMiniParseOpenDevTools_RClick(object sender, System.Windows.Forms.MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+                this.overlay.Overlay.Renderer.showDevTools(false);
+        }
+
         private void buttonCopyActXiv_Click(object sender, EventArgs e)
         {
             var json = overlay.CreateJsonData();
             if (!string.IsNullOrWhiteSpace(json))
             {
-                Clipboard.SetText("var ActXiv = " + json + ";");
+                Clipboard.SetText(json);
             }
         }
 

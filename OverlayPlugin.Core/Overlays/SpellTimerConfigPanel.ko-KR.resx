@@ -117,48 +117,37 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="label1.Text" xml:space="preserve">
-    <value>表示するテキスト</value>
-  </data>
-  <data name="label2.Text" xml:space="preserve">
-    <value>クリックを透過させる</value>
-  </data>
-  <data name="label3.Text" xml:space="preserve">
-    <value>オーバーレイを表示する</value>
-  </data>
   <data name="label7.Text" xml:space="preserve">
-    <value>グローバルホットキーを使用</value>
+    <value>최대 프레임 레이트</value>
   </data>
   <data name="label8.Text" xml:space="preserve">
-    <value>グローバルホットキー</value>
+    <value>클릭 무시</value>
   </data>
   <data name="label9.Text" xml:space="preserve">
-    <value>移動とリサイズを制限する</value>
+    <value>오버레이 표시</value>
   </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="checkLock.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
-  </data>
-  <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="checkLock.Size" type="System.Drawing.Size, System.Drawing">
-    <value>403, 16</value>
-  </data>
-  <data name="label13.Text" xml:space="preserve">
-    <value>※ホットキーの変更を有効にするためにはプラグインの再起動が必要です</value>
+  <data name="label10.Text" xml:space="preserve">
+    <value>URL</value>
   </data>
   <data name="buttonReloadBrowser.Text" xml:space="preserve">
-    <value>オーバーレイの表示をリロード</value>
+    <value>새로고침</value>
   </data>
   <data name="buttonOpenDevTools.Text" xml:space="preserve">
-    <value>DevToolsを開く</value>
+    <value>개발자 도구 열기</value>
   </data>
-  <data name="buttonCopyUpdateScript.Text" xml:space="preserve">
-    <value>変数をクリップボードにコピー</value>
+  <data name="buttonCopyVariable.Text" xml:space="preserve">
+    <value>업데이트 값 복사</value>
   </data>
-  <data name="label4.Text" xml:space="preserve">
-    <value>表示するURL</value>
+  <data name="label12.Text" xml:space="preserve">
+    <value>※ 프레임 레이트나 핫 키 설정을 적용하려면 플러그인을 다시 시작해야 합니다.</value>
   </data>
-  <data name="label5.Text" xml:space="preserve">
-    <value>テキストをHTMLとして表示</value>
+  <data name="label1.Text" xml:space="preserve">
+    <value>글로벌 핫 키 사용</value>
+  </data>
+  <data name="label2.Text" xml:space="preserve">
+    <value>글로벌 핫 키</value>
+  </data>
+  <data name="label3.Text" xml:space="preserve">
+    <value>위치 잠금</value>
   </data>
 </root>

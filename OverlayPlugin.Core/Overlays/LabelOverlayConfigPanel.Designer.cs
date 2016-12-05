@@ -44,8 +44,9 @@
             this.label13 = new System.Windows.Forms.Label();
             this.textBox = new System.Windows.Forms.TextBox();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
-            this.buttonReloadBrowser = new System.Windows.Forms.Button();
             this.buttonCopyUpdateScript = new System.Windows.Forms.Button();
+            this.buttonOpenDevTools = new System.Windows.Forms.Button();
+            this.buttonReloadBrowser = new System.Windows.Forms.Button();
             this.label4 = new System.Windows.Forms.Label();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
             this.textUrl = new System.Windows.Forms.TextBox();
@@ -73,7 +74,7 @@
             this.tableLayoutPanel1.Controls.Add(this.checkLock, 1, 2);
             this.tableLayoutPanel1.Controls.Add(this.label13, 1, 6);
             this.tableLayoutPanel1.Controls.Add(this.textBox, 1, 7);
-            this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel3, 1, 9);
+            this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel3, 0, 9);
             this.tableLayoutPanel1.Controls.Add(this.label4, 0, 3);
             this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel2, 1, 3);
             this.tableLayoutPanel1.Controls.Add(this.label5, 0, 8);
@@ -157,16 +158,11 @@
             // tableLayoutPanel3
             // 
             resources.ApplyResources(this.tableLayoutPanel3, "tableLayoutPanel3");
-            this.tableLayoutPanel3.Controls.Add(this.buttonReloadBrowser, 1, 0);
+            this.tableLayoutPanel1.SetColumnSpan(this.tableLayoutPanel3, 2);
             this.tableLayoutPanel3.Controls.Add(this.buttonCopyUpdateScript, 0, 0);
+            this.tableLayoutPanel3.Controls.Add(this.buttonOpenDevTools, 1, 0);
+            this.tableLayoutPanel3.Controls.Add(this.buttonReloadBrowser, 2, 0);
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
-            // 
-            // buttonReloadBrowser
-            // 
-            resources.ApplyResources(this.buttonReloadBrowser, "buttonReloadBrowser");
-            this.buttonReloadBrowser.Name = "buttonReloadBrowser";
-            this.buttonReloadBrowser.UseVisualStyleBackColor = true;
-            this.buttonReloadBrowser.Click += new System.EventHandler(this.buttonReloadBrowser_Click);
             // 
             // buttonCopyUpdateScript
             // 
@@ -174,6 +170,21 @@
             this.buttonCopyUpdateScript.Name = "buttonCopyUpdateScript";
             this.buttonCopyUpdateScript.UseVisualStyleBackColor = true;
             this.buttonCopyUpdateScript.Click += new System.EventHandler(this.buttonCopyActXiv_Click);
+            // 
+            // buttonOpenDevTools
+            // 
+            resources.ApplyResources(this.buttonOpenDevTools, "buttonOpenDevTools");
+            this.buttonOpenDevTools.Name = "buttonOpenDevTools";
+            this.buttonOpenDevTools.UseVisualStyleBackColor = true;
+            this.buttonOpenDevTools.Click += new System.EventHandler(this.buttonOpenDevTools_Click);
+            this.buttonOpenDevTools.MouseDown += new System.Windows.Forms.MouseEventHandler(this.buttonOpenDevTools_RClick);
+            // 
+            // buttonReloadBrowser
+            // 
+            resources.ApplyResources(this.buttonReloadBrowser, "buttonReloadBrowser");
+            this.buttonReloadBrowser.Name = "buttonReloadBrowser";
+            this.buttonReloadBrowser.UseVisualStyleBackColor = true;
+            this.buttonReloadBrowser.Click += new System.EventHandler(this.buttonReloadBrowser_Click);
             // 
             // label4
             // 
@@ -245,6 +256,7 @@
         private System.Windows.Forms.TextBox textBox;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
         private System.Windows.Forms.Button buttonReloadBrowser;
+        private System.Windows.Forms.Button buttonOpenDevTools;
         private System.Windows.Forms.Button buttonCopyUpdateScript;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;

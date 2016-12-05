@@ -17,7 +17,25 @@ namespace RainbowMage.HtmlRenderer
         public static event EventHandler<BroadcastMessageEventArgs> BroadcastMessage;
         public static event EventHandler<SendMessageEventArgs> SendMessage;
 
-        public CefBrowser Browser { get; private set; }
+        public List<CefBrowser> Browsers { get; private set; }
+        public CefBrowser Browser
+        {
+            get
+            {
+                if (this.Browsers == null || this.Browsers.Count == 0)
+                    return null;
+                return this.Browsers[0];
+            }
+        }
+        private CefBrowser LastBrowser
+        {
+            get
+            {
+                if (this.Browsers == null || this.Browsers.Count == 0)
+                    return null;
+                return this.Browsers[this.Browsers.Count - 1];
+            }
+        }
         private Client Client { get; set; }
 
         private int clickCount;
@@ -52,16 +70,23 @@ namespace RainbowMage.HtmlRenderer
 
         public void EndRender()
         {
-            if (this.Browser != null)
+            if (this.Browsers != null)
             {
-                var host = Browser.GetHost();
-                if (host != null)
+                this.Browsers.ForEach((browser) =>
                 {
-                    host.CloseBrowser(true);
-                    host.Dispose();
-                }
-                this.Browser.Dispose();
-                this.Browser = null;
+                    if (browser != null)
+                    {
+                        var host = browser.GetHost();
+                        if (host != null)
+                        {
+                            host.CloseBrowser(true);
+                            host.Dispose();
+                        }
+                        browser.Dispose();
+                        browser = null;
+                    }
+                });
+                this.Browsers = null;
             }
         }
 
@@ -143,24 +168,6 @@ namespace RainbowMage.HtmlRenderer
             }
         }
 
-        public void SendActivate()
-        {
-            if (this.Browser != null)
-            {
-                var host = this.Browser.GetHost();
-                host.SendFocusEvent(true);
-            }
-        }
-
-        public void SendDeactivate()
-        {
-            if (this.Browser != null)
-            {
-                var host = this.Browser.GetHost();
-                host.SendFocusEvent(false);
-            }
-        }
-
         private bool IsContinuousClick(int x, int y, CefMouseButtonType button)
         {
             // ダブルクリックとして認識するクリックの間隔よりも大きかった場合は継続的なクリックとみなさない
@@ -189,9 +196,25 @@ namespace RainbowMage.HtmlRenderer
             }
         }
 
+        public void showDevTools(bool firstWindow = true)
+        {
+            if (this.Browser != null)
+            {
+                CefBrowser b = firstWindow ? this.Browser : this.LastBrowser;
+                CefWindowInfo wi = CefWindowInfo.Create();
+                wi.SetAsPopup(b.GetHost().GetWindowHandle(), "DevTools");
+                b.GetHost().ShowDevTools(wi, this.Client, new CefBrowserSettings(), new CefPoint());
+            }
+        }
+
         internal void OnCreated(CefBrowser browser)
         {
-            this.Browser = browser;
+            if (this.Browsers == null)
+            {
+                this.Browsers = new List<CefBrowser>();
+            }
+            this.Browsers.Add(browser);
+            browser.GetHost().SendFocusEvent(true);
         }
 
         internal void OnPaint(CefBrowser browser, IntPtr buffer, int width, int height, CefRectangle[] dirtyRects)
@@ -259,11 +282,12 @@ namespace RainbowMage.HtmlRenderer
                 var cefApp = new App();
                 if (CefRuntime.ExecuteProcess(cefMainArgs, cefApp, IntPtr.Zero) != -1)
                 {
-                    Console.Error.WriteLine("Could not the secondary process.");
+                    Console.Error.WriteLine("Couldn't execute secondary process.");
                 }
 
                 var cefSettings = new CefSettings
                 {
+                    CachePath = "cache",
                     SingleProcess = true,
                     MultiThreadedMessageLoop = true,
                     LogSeverity = CefLogSeverity.Disable
@@ -282,6 +306,18 @@ namespace RainbowMage.HtmlRenderer
                 CefRuntime.Shutdown();
             }
         }
+
+        public void ExecuteScript(string script)
+        {
+            this.Browsers.ForEach((b) =>
+            {
+                foreach (var frameId in b.GetFrameIdentifiers())
+                {
+                    var frame = b.GetFrame(frameId);
+                    frame.ExecuteJavaScript(script, null, 0);
+                }
+            });
+        }
     }
 
     public class BrowserErrorEventArgs : EventArgs
@@ -296,7 +332,7 @@ namespace RainbowMage.HtmlRenderer
             this.Url = url;
         }
     }
-
+    
     public class BrowserLoadEventArgs : EventArgs
     {
         public int HttpStatusCode { get; private set; }

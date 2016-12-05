@@ -138,6 +138,9 @@
   <data name="buttonMiniParseReloadBrowser.Text" xml:space="preserve">
     <value>オーバーレイの表示をリロード</value>
   </data>
+  <data name="buttonMiniParseOpenDevTools.Text" xml:space="preserve">
+    <value>DevToolsを開く</value>
+  </data>
   <data name="buttonMiniParseCopyActXiv.Text" xml:space="preserve">
     <value>変数をクリップボードにコピー</value>
   </data>

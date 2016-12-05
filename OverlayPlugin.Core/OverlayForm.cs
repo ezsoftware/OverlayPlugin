@@ -92,10 +92,11 @@ namespace RainbowMage.OverlayPlugin
                 const int WS_EX_TOPMOST = 0x00000008;
                 const int WS_EX_LAYERED = 0x00080000;
                 const int CP_NOCLOSE_BUTTON = 0x200;
+                const int WS_EX_NOACTIVATE = 0x08000000;
 
                 var cp = base.CreateParams;
-                cp.ExStyle = cp.ExStyle | WS_EX_TOPMOST | WS_EX_LAYERED;
-                cp.ClassStyle = cp.ClassStyle | CP_NOCLOSE_BUTTON;
+                cp.ExStyle = cp.ExStyle | WS_EX_TOPMOST | WS_EX_LAYERED | WS_EX_NOACTIVATE;
+                cp.ClassStyle = cp.ClassStyle | CP_NOCLOSE_BUTTON | WS_EX_NOACTIVATE;
 
                 return cp;
             }
@@ -628,22 +629,6 @@ namespace RainbowMage.OverlayPlugin
         private bool IsKeyToggled(Keys key)
         {
             return (NativeMethods.GetKeyState((int)key) & 1) == 1;
-        }
-
-        private void OverlayForm_Activated(object sender, EventArgs e)
-        {
-            if (this.Renderer != null)
-            {
-                this.Renderer.SendActivate();
-            }
-        }
-
-        private void OverlayForm_Deactivate(object sender, EventArgs e)
-        {
-            if (this.Renderer != null)
-            {
-                this.Renderer.SendDeactivate();
-            }
         }
     }
 }

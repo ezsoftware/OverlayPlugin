@@ -117,48 +117,29 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="label1.Text" xml:space="preserve">
-    <value>表示するテキスト</value>
-  </data>
-  <data name="label2.Text" xml:space="preserve">
-    <value>クリックを透過させる</value>
-  </data>
-  <data name="label3.Text" xml:space="preserve">
-    <value>オーバーレイを表示する</value>
-  </data>
-  <data name="label7.Text" xml:space="preserve">
-    <value>グローバルホットキーを使用</value>
-  </data>
-  <data name="label8.Text" xml:space="preserve">
-    <value>グローバルホットキー</value>
-  </data>
-  <data name="label9.Text" xml:space="preserve">
-    <value>移動とリサイズを制限する</value>
-  </data>
-  <assembly alias="System.Windows.Forms" name="System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089" />
-  <data name="checkLock.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
-    <value>Fill</value>
+  <data name="buttonCancel.Text" xml:space="preserve">
+    <value>취소</value>
   </data>
   <assembly alias="System.Drawing" name="System.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a" />
-  <data name="checkLock.Size" type="System.Drawing.Size, System.Drawing">
-    <value>403, 16</value>
+  <data name="textBox1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>14, 29</value>
   </data>
-  <data name="label13.Text" xml:space="preserve">
-    <value>※ホットキーの変更を有効にするためにはプラグインの再起動が必要です</value>
+  <data name="label1.Size" type="System.Drawing.Size, System.Drawing">
+    <value>29, 12</value>
   </data>
-  <data name="buttonReloadBrowser.Text" xml:space="preserve">
-    <value>オーバーレイの表示をリロード</value>
+  <data name="label1.Text" xml:space="preserve">
+    <value>이름</value>
   </data>
-  <data name="buttonOpenDevTools.Text" xml:space="preserve">
-    <value>DevToolsを開く</value>
+  <data name="label2.Size" type="System.Drawing.Size, System.Drawing">
+    <value>29, 12</value>
   </data>
-  <data name="buttonCopyUpdateScript.Text" xml:space="preserve">
-    <value>変数をクリップボードにコピー</value>
+  <data name="label2.Text" xml:space="preserve">
+    <value>형식</value>
   </data>
-  <data name="label4.Text" xml:space="preserve">
-    <value>表示するURL</value>
+  <data name="comboBox1.Location" type="System.Drawing.Point, System.Drawing">
+    <value>14, 77</value>
   </data>
-  <data name="label5.Text" xml:space="preserve">
-    <value>テキストをHTMLとして表示</value>
+  <data name="$this.Text" xml:space="preserve">
+    <value>새 오버레이</value>
   </data>
 </root>
