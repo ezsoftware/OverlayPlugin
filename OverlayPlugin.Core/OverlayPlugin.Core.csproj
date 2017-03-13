@@ -44,6 +44,9 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\Thirdparty\ACT\Advanced Combat Tracker.exe</HintPath>
     </Reference>
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\Thirdparty\Newtonsoft.Json\Newtonsoft.Json.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
@@ -69,6 +72,7 @@
     </Compile>
     <Compile Include="DIBitmap.cs" />
     <Compile Include="KeyboardHook.cs" />
+    <Compile Include="Overlays\MiniParseLoglineReader.cs" />
     <Compile Include="Overlays\LabelOverlay.cs" />
     <Compile Include="Overlays\LabelOverlayAddon.cs" />
     <Compile Include="Overlays\LabelOverlayConfig.cs" />

@@ -22,5 +22,12 @@ namespace RainbowMage.HtmlRenderer
 
             this.renderer.OnCreated(browser);
         }
+
+        protected override void OnBeforeClose(CefBrowser browser)
+        {
+            base.OnBeforeClose(browser);
+
+            this.renderer.OnBeforeClose(browser);
+        }
     }
 }

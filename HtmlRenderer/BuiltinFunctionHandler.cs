@@ -11,9 +11,11 @@ namespace RainbowMage.HtmlRenderer
     {
         public event EventHandler<BroadcastMessageEventArgs> BroadcastMessage;
         public event EventHandler<SendMessageEventArgs> SendMessage;
+        public event EventHandler<EndEncounterEventArgs> EndEncounter;
 
         public const string BroadcastMessageFunctionName = "broadcastMessage";
         public const string SendMessageFunctionName = "sendMessage";
+        public const string EndEncounterFunctionName = "endEncounter";
 
         protected override bool Execute(string name, CefV8Value obj, CefV8Value[] arguments, out CefV8Value returnValue, out string exception)
         {
@@ -52,6 +54,13 @@ namespace RainbowMage.HtmlRenderer
 
                 return true;
             }
+            else if (name == EndEncounterFunctionName)
+            {
+                if (EndEncounter != null)
+                {
+                    EndEncounter(obj, new EndEncounterEventArgs());
+                }
+            }
 
             return false;
         }
@@ -76,6 +85,14 @@ namespace RainbowMage.HtmlRenderer
         {
             this.Target = target;
             this.Message = message;
+        }
+    }
+
+    public class EndEncounterEventArgs : EventArgs
+    {
+        public EndEncounterEventArgs()
+        {
+
         }
     }
 }

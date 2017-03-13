@@ -22,6 +22,10 @@ namespace RainbowMage.HtmlRenderer
             {
                 Renderer.OnSendMessage(o, e);
             };
+            this.builtinFunctionHandler.EndEncounter += (o, e) =>
+            {
+                Renderer.OnRendererFeatureRequest(o, new RendererFeatureRequestEventArgs("EndEncounter"));
+            };
         }
 
         protected override bool OnProcessMessageReceived(CefBrowser browser, CefProcessId sourceProcess, CefProcessMessage message)
@@ -43,17 +47,24 @@ namespace RainbowMage.HtmlRenderer
                     var sendMessageFunction = CefV8Value.CreateFunction(
                          BuiltinFunctionHandler.SendMessageFunctionName,
                          builtinFunctionHandler);
+                    var endEncounterFunction = CefV8Value.CreateFunction(
+                         BuiltinFunctionHandler.EndEncounterFunctionName,
+                         builtinFunctionHandler);
 
                     apiObject.SetValue(
                         BuiltinFunctionHandler.BroadcastMessageFunctionName,
                         broadcastMessageFunction,
-                        CefV8PropertyAttribute.None);
+                        CefV8PropertyAttribute.ReadOnly);
                     apiObject.SetValue(
                         BuiltinFunctionHandler.SendMessageFunctionName,
                         sendMessageFunction,
-                        CefV8PropertyAttribute.None);
+                        CefV8PropertyAttribute.ReadOnly);
+                    apiObject.SetValue(
+                        BuiltinFunctionHandler.EndEncounterFunctionName,
+                        endEncounterFunction,
+                        CefV8PropertyAttribute.ReadOnly);
 
-                    frame.V8Context.GetGlobal().SetValue("OverlayPluginApi", apiObject, CefV8PropertyAttribute.None);
+                    frame.V8Context.GetGlobal().SetValue("OverlayPluginApi", apiObject, CefV8PropertyAttribute.ReadOnly);
 
                     frame.V8Context.Exit();
                 }

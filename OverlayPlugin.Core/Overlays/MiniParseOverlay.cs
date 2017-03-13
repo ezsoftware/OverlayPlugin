@@ -7,10 +7,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 
 namespace RainbowMage.OverlayPlugin.Overlays
 {
-    public class MiniParseOverlay : OverlayBase<MiniParseOverlayConfig>
+    public partial class MiniParseOverlay : OverlayBase<MiniParseOverlayConfig>
     {
         private string prevEncounterId { get; set; }
         private DateTime prevEndDateTime { get; set; }
@@ -23,6 +25,7 @@ namespace RainbowMage.OverlayPlugin.Overlays
         public MiniParseOverlay(MiniParseOverlayConfig config)
             : base(config, config.Name)
         {
+            ActGlobals.oFormActMain.BeforeLogLineRead += LogLineReader;
         }
 
         public override void Navigate(string url)
@@ -62,7 +65,7 @@ namespace RainbowMage.OverlayPlugin.Overlays
 
         private string CreateEventDispatcherScript()
         {
-            // why?
+            // why???
             return "var ActXiv = " + this.CreateJsonData() + ";\n" +
                    "document.dispatchEvent(new CustomEvent('onOverlayDataUpdate', { detail: ActXiv }));";
         }
@@ -99,63 +102,30 @@ namespace RainbowMage.OverlayPlugin.Overlays
                 });
             Task.WaitAll(encounterTask, combatantTask);
 
-            var builder = new StringBuilder();
-            builder.Append("{");
-            builder.Append("\"Encounter\": {");
-            var isFirst1 = true;
-            foreach (var pair in encounter)
-            {
-                if (isFirst1)
-                {
-                    isFirst1 = false;
-                }
-                else
-                {
-                    builder.Append(",");
-                }
-                var valueString = Util.CreateJsonSafeString(Util.ReplaceNaNString(pair.Value, "---"));
-                builder.AppendFormat("\"{0}\":\"{1}\"", Util.CreateJsonSafeString(pair.Key), valueString);
-            }
-            builder.Append("},");
-            builder.Append("\"Combatant\": {");
-            var isFirst2 = true;
+            JObject obj = new JObject();
+
+            obj["Encounter"] = JObject.FromObject(encounter);
+            obj["Combatant"] = new JObject();
+            
             foreach (var pair in combatant)
             {
-                if (isFirst2)
-                {
-                    isFirst2 = false;
-                }
-                else
-                {
-                    builder.Append(",");
-                }
-                builder.AppendFormat("\"{0}\": {{", Util.CreateJsonSafeString(pair.Key.Name));
-                var isFirst3 = true;
+                JObject value = new JObject();
                 foreach (var pair2 in pair.Value)
                 {
-                    if (isFirst3)
-                    {
-                        isFirst3 = false;
-                    }
-                    else
-                    {
-                        builder.Append(",");
-                    }
-                    var valueString = Util.CreateJsonSafeString(Util.ReplaceNaNString(pair2.Value, "---"));
-                    builder.AppendFormat("\"{0}\":\"{1}\"", Util.CreateJsonSafeString(pair2.Key), valueString);
+                    value.Add(pair2.Key, Util.ReplaceNaNString(pair2.Value, "---"));
                 }
-                builder.Append("}");
+
+                obj["Combatant"][pair.Key.Name] = value;
             }
-            builder.Append("},");
-            builder.AppendFormat("\"isActive\": {0}", ActGlobals.oFormActMain.ActiveZone.ActiveEncounter.Active ? "true" : "false");
-            builder.Append("}");
+
+            obj["isActive"] = ActGlobals.oFormActMain.ActiveZone.ActiveEncounter.Active ? "true" : "false";
 
 #if DEBUG
             stopwatch.Stop();
             Log(LogLevel.Trace, "CreateUpdateScript: {0} msec", stopwatch.Elapsed.TotalMilliseconds);
 #endif
 
-            var result = builder.ToString();
+            var result = obj.ToString();
             updateStringCache = result;
             updateStringCacheLastUpdate = DateTime.Now;
 

@@ -96,7 +96,7 @@ namespace RainbowMage.OverlayPlugin
 
                 var cp = base.CreateParams;
                 cp.ExStyle = cp.ExStyle | WS_EX_TOPMOST | WS_EX_LAYERED | WS_EX_NOACTIVATE;
-                cp.ClassStyle = cp.ClassStyle | CP_NOCLOSE_BUTTON | WS_EX_NOACTIVATE;
+                cp.ClassStyle = cp.ClassStyle | CP_NOCLOSE_BUTTON;
 
                 return cp;
             }

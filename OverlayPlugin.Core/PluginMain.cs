@@ -84,6 +84,16 @@ namespace RainbowMage.OverlayPlugin
                         }
                     });
                 };
+                RainbowMage.HtmlRenderer.Renderer.RendererFeatureRequest += (o, e) =>
+                {
+                    Task.Run(() =>
+                    {
+                        if (e.Request == "EndEncounter")
+                        {
+                            ActGlobals.oFormActMain.EndCombat(true);
+                        }
+                    });
+                };
 
 
                 // ACT 終了時に CEF をシャットダウン（ゾンビ化防止）
