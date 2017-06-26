@@ -1,4 +1,6 @@
-﻿namespace RainbowMage.OverlayPlugin
+﻿using System.Windows.Forms;
+
+namespace RainbowMage.OverlayPlugin
 {
     partial class ControlPanel
     {
@@ -31,15 +33,14 @@
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ControlPanel));
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.tabControl = new System.Windows.Forms.TabControl();
+            this.tabControl = new RainbowMage.OverlayPlugin.TabControlExt();
+            this.tableLayoutPanel0 = new System.Windows.Forms.TableLayoutPanel();
+            this.flowLayoutPanel = new System.Windows.Forms.FlowLayoutPanel();
             this.tabPageMain = new System.Windows.Forms.TabPage();
-            this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.label_ListEmpty = new System.Windows.Forms.Label();
             this.buttonRemoveOverlay = new System.Windows.Forms.Button();
             this.buttonNewOverlay = new System.Windows.Forms.Button();
-            this.listViewOverlay = new System.Windows.Forms.ListView();
-            this.columnHeader4 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
-            this.columnHeader5 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
             this.checkBoxAutoHide = new System.Windows.Forms.CheckBox();
             this.listViewLog = new System.Windows.Forms.ListView();
             this.columnHeader1 = ((System.Windows.Forms.ColumnHeader)(new System.Windows.Forms.ColumnHeader()));
@@ -58,7 +59,7 @@
             this.splitContainer1.SuspendLayout();
             this.tabControl.SuspendLayout();
             this.tabPageMain.SuspendLayout();
-            this.tableLayoutPanel1.SuspendLayout();
+            this.tableLayoutPanel0.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.contextMenuLogList.SuspendLayout();
             this.SuspendLayout();
@@ -71,42 +72,59 @@
             // splitContainer1.Panel1
             // 
             resources.ApplyResources(this.splitContainer1.Panel1, "splitContainer1.Panel1");
-            this.splitContainer1.Panel1.Controls.Add(this.tabControl);
+            this.splitContainer1.Panel1.Controls.Add(this.tableLayoutPanel0);
             // 
             // splitContainer1.Panel2
             // 
             resources.ApplyResources(this.splitContainer1.Panel2, "splitContainer1.Panel2");
             this.splitContainer1.Panel2.Controls.Add(this.listViewLog);
+            //
+            // tableLayoutPanel0
+            //
+            resources.ApplyResources(this.tableLayoutPanel0, "tableLayoutPanel0");
+            this.tableLayoutPanel0.Name = "tableLayoutPanel0";
+            this.tableLayoutPanel0.Controls.Add(this.tabControl, 0, 0);
+            this.tableLayoutPanel0.Controls.Add(this.flowLayoutPanel, 0, 1);
+
+            this.tableLayoutPanel0.ColumnCount = 1;
+            this.tableLayoutPanel0.RowCount = 2;
+            this.tableLayoutPanel0.Dock = DockStyle.Fill;
+            this.tableLayoutPanel0.Margin = new Padding(0);
+            //
+            // flowLayoutPanel
+            //
+            resources.ApplyResources(this.flowLayoutPanel, "flowLayoutPanel");
+            this.flowLayoutPanel.Name = "flowLayoutPanel";
+            this.flowLayoutPanel.Controls.Add(this.buttonNewOverlay);
+            this.flowLayoutPanel.Controls.Add(this.buttonRemoveOverlay);
+            this.flowLayoutPanel.Controls.Add(this.checkBoxAutoHide);
+
+            this.flowLayoutPanel.Dock = DockStyle.Fill;
+            this.flowLayoutPanel.Margin = new Padding(3, 0, 3, 0);
             // 
             // tabControl
             // 
             resources.ApplyResources(this.tabControl, "tabControl");
-            this.tabControl.Controls.Add(this.tabPageMain);
+            // should visible only when empty
+            // this.tabControl.Controls.Add(this.tabPageMain);
+            this.tabControl.Multiline = true;
             this.tabControl.Name = "tabControl";
             this.tabControl.SelectedIndex = 0;
+            this.tabControl.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
             // 
             // tabPageMain
             // 
             resources.ApplyResources(this.tabPageMain, "tabPageMain");
-            this.tabPageMain.Controls.Add(this.tableLayoutPanel1);
-            this.tabPageMain.Name = "tabPageMain";
+            this.tabPageMain.Controls.Add(this.label_ListEmpty);
+            this.tabPageMain.Name = "OverlayPlugin";
             this.tabPageMain.UseVisualStyleBackColor = true;
-            // 
-            // tableLayoutPanel1
-            // 
-            resources.ApplyResources(this.tableLayoutPanel1, "tableLayoutPanel1");
-            this.tableLayoutPanel1.Controls.Add(this.groupBox2, 0, 0);
-            this.tableLayoutPanel1.Controls.Add(this.checkBoxAutoHide, 0, 1);
-            this.tableLayoutPanel1.Name = "tableLayoutPanel1";
-            // 
-            // groupBox2
-            // 
-            resources.ApplyResources(this.groupBox2, "groupBox2");
-            this.groupBox2.Controls.Add(this.buttonRemoveOverlay);
-            this.groupBox2.Controls.Add(this.buttonNewOverlay);
-            this.groupBox2.Controls.Add(this.listViewOverlay);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.TabStop = false;
+            //
+            // label_ListEmpty
+            //
+            resources.ApplyResources(this.label_ListEmpty, "label_ListEmpty");
+            this.label_ListEmpty.Name = "label_ListEmpty";
+            this.label_ListEmpty.TextAlign = System.Drawing.ContentAlignment.MiddleCenter;
+            this.label_ListEmpty.Dock = DockStyle.Fill;
             // 
             // buttonRemoveOverlay
             // 
@@ -121,27 +139,6 @@
             this.buttonNewOverlay.Name = "buttonNewOverlay";
             this.buttonNewOverlay.UseVisualStyleBackColor = true;
             this.buttonNewOverlay.Click += new System.EventHandler(this.buttonNewOverlay_Click);
-            // 
-            // listViewOverlay
-            // 
-            resources.ApplyResources(this.listViewOverlay, "listViewOverlay");
-            this.listViewOverlay.Columns.AddRange(new System.Windows.Forms.ColumnHeader[] {
-            this.columnHeader4,
-            this.columnHeader5});
-            this.listViewOverlay.FullRowSelect = true;
-            this.listViewOverlay.HeaderStyle = System.Windows.Forms.ColumnHeaderStyle.Nonclickable;
-            this.listViewOverlay.HideSelection = false;
-            this.listViewOverlay.Name = "listViewOverlay";
-            this.listViewOverlay.UseCompatibleStateImageBehavior = false;
-            this.listViewOverlay.View = System.Windows.Forms.View.Details;
-            // 
-            // columnHeader4
-            // 
-            resources.ApplyResources(this.columnHeader4, "columnHeader4");
-            // 
-            // columnHeader5
-            // 
-            resources.ApplyResources(this.columnHeader5, "columnHeader5");
             // 
             // checkBoxAutoHide
             // 
@@ -230,7 +227,7 @@
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.Transparent;
+            this.BackColor = System.Drawing.SystemColors.ControlLightLight;
             this.Controls.Add(this.splitContainer1);
             this.Name = "ControlPanel";
             this.splitContainer1.Panel1.ResumeLayout(false);
@@ -239,8 +236,8 @@
             this.splitContainer1.ResumeLayout(false);
             this.tabControl.ResumeLayout(false);
             this.tabPageMain.ResumeLayout(false);
-            this.tableLayoutPanel1.ResumeLayout(false);
-            this.tableLayoutPanel1.PerformLayout();
+            this.tableLayoutPanel0.ResumeLayout(false);
+            this.tableLayoutPanel0.PerformLayout();
             this.groupBox2.ResumeLayout(false);
             this.contextMenuLogList.ResumeLayout(false);
             this.ResumeLayout(false);
@@ -252,7 +249,7 @@
         private System.Windows.Forms.SplitContainer splitContainer1;
         private System.Windows.Forms.ContextMenuStrip contextMenuLogList;
         private System.Windows.Forms.ToolStripMenuItem menuLogCopy;
-        private System.Windows.Forms.TabControl tabControl;
+        private RainbowMage.OverlayPlugin.TabControlExt tabControl;
         private System.Windows.Forms.ListView listViewLog;
         private System.Windows.Forms.ColumnHeader columnHeader1;
         private System.Windows.Forms.ColumnHeader columnHeader2;
@@ -266,10 +263,9 @@
         private System.Windows.Forms.GroupBox groupBox2;
         private System.Windows.Forms.Button buttonRemoveOverlay;
         private System.Windows.Forms.Button buttonNewOverlay;
-        private System.Windows.Forms.ListView listViewOverlay;
-        private System.Windows.Forms.ColumnHeader columnHeader4;
-        private System.Windows.Forms.ColumnHeader columnHeader5;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.CheckBox checkBoxAutoHide;
+        private TableLayoutPanel tableLayoutPanel0;
+        private FlowLayoutPanel flowLayoutPanel;
+        private Label label_ListEmpty;
     }
 }

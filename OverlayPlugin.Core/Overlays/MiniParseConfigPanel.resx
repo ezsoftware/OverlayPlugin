@@ -615,6 +615,9 @@
   <data name="checkLock.Location" type="System.Drawing.Point, System.Drawing">
     <value>158, 47</value>
   </data>
+  <data name="checkLock.Dock" type="System.Windows.Forms.DockStyle, System.Windows.Forms">
+    <value>Fill</value>
+  </data>
   <data name="label1.TabIndex" type="System.Int32, mscorlib">
     <value>0</value>
   </data>

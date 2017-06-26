@@ -117,20 +117,17 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="$this.Font" type="System.Drawing.Font, System.Drawing">
+    <value>Meiryo UI, 9pt</value>
+  </data>
   <data name="buttonRemoveOverlay.Text" xml:space="preserve">
     <value>削除</value>
   </data>
   <data name="buttonNewOverlay.Text" xml:space="preserve">
     <value>追加</value>
   </data>
-  <data name="columnHeader4.Text" xml:space="preserve">
-    <value>名前</value>
-  </data>
-  <data name="columnHeader5.Text" xml:space="preserve">
-    <value>種類</value>
-  </data>
-  <data name="groupBox2.Text" xml:space="preserve">
-    <value>オーバーレイの管理</value>
+  <data name="label_ListEmpty.Text" xml:space="preserve">
+    <value>[追加] バートンを押して、オーバーレイを設定してください</value>
   </data>
   <data name="checkBoxAutoHide.Text" xml:space="preserve">
     <value>非アクティブのときに自動的にオーバーレイを隠す</value>

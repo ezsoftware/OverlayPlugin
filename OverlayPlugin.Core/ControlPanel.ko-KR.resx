@@ -117,20 +117,17 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
+  <data name="$this.Font" type="System.Drawing.Font, System.Drawing">
+    <value>맑은 고딕, 9pt</value>
+  </data>
   <data name="buttonRemoveOverlay.Text" xml:space="preserve">
     <value>삭제</value>
   </data>
   <data name="buttonNewOverlay.Text" xml:space="preserve">
     <value>추가</value>
   </data>
-  <data name="columnHeader4.Text" xml:space="preserve">
-    <value>이름</value>
-  </data>
-  <data name="columnHeader5.Text" xml:space="preserve">
-    <value>형식</value>
-  </data>
-  <data name="groupBox2.Text" xml:space="preserve">
-    <value>오버레이 추가/제거</value>
+  <data name="label_ListEmpty.Text" xml:space="preserve">
+    <value>[추가] 버튼을 눌러서 오버레이를 설정해주세요.</value>
   </data>
   <data name="checkBoxAutoHide.Text" xml:space="preserve">
     <value>비활성화 시 오버레이 자동으로 감추기</value>

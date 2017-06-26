@@ -64,6 +64,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ConfigEventArgs.cs" />
+    <Compile Include="TabControlExt.cs">
+      <SubType>Component</SubType>
+    </Compile>
     <Compile Include="ControlPanel.cs">
       <SubType>UserControl</SubType>
     </Compile>

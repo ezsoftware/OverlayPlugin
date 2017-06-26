@@ -40,7 +40,6 @@ namespace RainbowMage.OverlayPlugin
             };
 
             InitializeOverlayConfigTabs();
-            UpdateOverlayListView();
         }
 
         private void InitializeOverlayConfigTabs()
@@ -56,7 +55,7 @@ namespace RainbowMage.OverlayPlugin
             var tabPage = new TabPage
             {
                 Name = overlay.Name,
-                Text = overlay.Name
+                Text = overlay.GetType().Name
             };
 
             var addon = pluginMain.Addons.FirstOrDefault(x => x.OverlayType == overlay.GetType());
@@ -66,22 +65,12 @@ namespace RainbowMage.OverlayPlugin
                 if (control != null)
                 {
                     control.Dock = DockStyle.Fill;
+                    control.BackColor = SystemColors.ControlLightLight;
                     tabPage.Controls.Add(control);
 
                     this.tabControl.TabPages.Add(tabPage);
+                    this.tabControl.SelectTab(tabPage);
                 }
-            }
-        }
-
-        private void UpdateOverlayListView()
-        {
-            this.listViewOverlay.Items.Clear();
-            foreach (var overlay in this.pluginMain.Overlays)
-            {
-                var lvi = new ListViewItem();
-                lvi.Text = overlay.Name;
-                lvi.SubItems.Add(overlay.GetType().Name);
-                this.listViewOverlay.Items.Add(lvi);
             }
         }
 
@@ -179,11 +168,16 @@ namespace RainbowMage.OverlayPlugin
                         return true;
                     }
                 };
-
+            
             if (newOverlayDialog.ShowDialog(this.ParentForm) == DialogResult.OK)
             {
+                if (this.tabControl.TabCount == 1 && this.tabControl.TabPages[0].Equals(this.tabPageMain))
+                {
+                    this.tabControl.TabPages.Remove(this.tabPageMain);
+                }
                 CreateAndRegisterOverlay(newOverlayDialog.SelectedOverlayType, newOverlayDialog.OverlayName);
             }
+            
             newOverlayDialog.Dispose();
         }
 
@@ -196,41 +190,52 @@ namespace RainbowMage.OverlayPlugin
             pluginMain.RegisterOverlay(overlay);
 
             AddConfigTab(overlay);
-            UpdateOverlayListView();
 
             return overlay;
         }
 
         private void buttonRemoveOverlay_Click(object sender, EventArgs e)
         {
-            foreach (ListViewItem item in listViewOverlay.SelectedItems)
+            if (this.tabControl.SelectedTab.Equals(this.tabPageMain)) // oh no
+                return;
+            
+            string selectedOverlayName = tabControl.SelectedTab.Name;
+            int selectedOverlayIndex = tabControl.TabPages.IndexOf(tabControl.SelectedTab);
+
+            // コンフィグ削除
+            var configs = this.config.Overlays.Where(x => x.Name == selectedOverlayName);
+            foreach (var config in configs.ToArray())
             {
-                string selectedOverlayName = item.Text;
-
-                // コンフィグ削除
-                var configs = this.config.Overlays.Where(x => x.Name == selectedOverlayName);
-                foreach (var config in configs.ToArray())
-                {
-                    this.config.Overlays.Remove(config);
-                }
-
-                // 動作中のオーバーレイを停止して削除
-                var overlays = this.pluginMain.Overlays.Where(x => x.Name == selectedOverlayName);
-                foreach (var overlay in overlays)
-                {
-                    overlay.Dispose();
-                }
-                foreach (var overlay in overlays.ToArray())
-                {
-                    this.pluginMain.Overlays.Remove(overlay);
-                }
-
-                // タブページを削除
-                this.tabControl.TabPages.RemoveByKey(selectedOverlayName);
-
-                // リストビューを更新
-                UpdateOverlayListView();
+                this.config.Overlays.Remove(config);
             }
+
+            // 動作中のオーバーレイを停止して削除
+            var overlays = this.pluginMain.Overlays.Where(x => x.Name == selectedOverlayName);
+            foreach (var overlay in overlays)
+            {
+                overlay.Dispose();
+            }
+            foreach (var overlay in overlays.ToArray())
+            {
+                this.pluginMain.Overlays.Remove(overlay);
+            }
+
+            // タブページを削除
+            this.tabControl.TabPages.RemoveByKey(selectedOverlayName);
+
+            // タープカントロールが
+            if (this.tabControl.TabCount == 0)
+            {
+                this.tabControl.TabPages.Add(this.tabPageMain);
+            }
+            // 
+            if (selectedOverlayIndex > 0)
+            {
+                this.tabControl.SelectTab(selectedOverlayIndex - 1);
+            }
+
+            // タープを更新
+            this.tabControl.Update();
         }
 
         private void checkBoxAutoHide_CheckedChanged(object sender, EventArgs e)
