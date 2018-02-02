@@ -1,6 +1,6 @@
 ﻿namespace RainbowMage.OverlayPlugin.Overlays
 {
-    partial class MiniParseConfigPanel
+    partial class LogParseConfigPanel
     {
         /// <summary> 
         /// 必要なデザイナー変数です。
@@ -28,12 +28,11 @@
         /// </summary>
         private void InitializeComponent()
         {
-            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MiniParseConfigPanel));
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(LogParseConfigPanel));
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.label6 = new System.Windows.Forms.Label();
-            this.label5 = new System.Windows.Forms.Label();
-            this.textMiniParseSortKey = new System.Windows.Forms.TextBox();
-            this.label4 = new System.Windows.Forms.Label();
+            //this.label5 = new System.Windows.Forms.Label();
+            //this.label4 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
@@ -41,13 +40,12 @@
             this.checkMiniParseClickthru = new System.Windows.Forms.CheckBox();
             this.panel1 = new System.Windows.Forms.Panel();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
-            this.buttonMiniParseCopyActXiv = new System.Windows.Forms.Button();
-            this.buttonMiniParseOpenDevTools = new System.Windows.Forms.Button();
-            this.buttonMiniParseReloadBrowser = new System.Windows.Forms.Button();
+            this.buttonLogParseCopyActXiv = new System.Windows.Forms.Button();
+            this.buttonLogParseOpenDevTools = new System.Windows.Forms.Button();
+            this.buttonLogParseReloadBrowser = new System.Windows.Forms.Button();
             this.tableLayoutPanel2 = new System.Windows.Forms.TableLayoutPanel();
-            this.textMiniParseUrl = new System.Windows.Forms.TextBox();
-            this.buttonMiniParseSelectFile = new System.Windows.Forms.Button();
-            this.comboMiniParseSortType = new System.Windows.Forms.ComboBox();
+            this.textLogParseUrl = new System.Windows.Forms.TextBox();
+            this.buttonLogParseSelectFile = new System.Windows.Forms.Button();
             this.nudMaxFrameRate = new System.Windows.Forms.NumericUpDown();
             this.label13 = new System.Windows.Forms.Label();
             this.label7 = new System.Windows.Forms.Label();
@@ -68,10 +66,9 @@
             // tableLayoutPanel1
             // 
             resources.ApplyResources(this.tableLayoutPanel1, "tableLayoutPanel1");
-            this.tableLayoutPanel1.Controls.Add(this.label6, 0, 6);
-            this.tableLayoutPanel1.Controls.Add(this.label5, 0, 5);
-            this.tableLayoutPanel1.Controls.Add(this.textMiniParseSortKey, 1, 4);
-            this.tableLayoutPanel1.Controls.Add(this.label4, 0, 4);
+            this.tableLayoutPanel1.Controls.Add(this.label6, 0, 4);
+            //this.tableLayoutPanel1.Controls.Add(this.label5, 0, 5);
+            //this.tableLayoutPanel1.Controls.Add(this.label4, 0, 4);
             this.tableLayoutPanel1.Controls.Add(this.label2, 0, 1);
             this.tableLayoutPanel1.Controls.Add(this.label3, 0, 0);
             this.tableLayoutPanel1.Controls.Add(this.label1, 0, 3);
@@ -79,17 +76,16 @@
             this.tableLayoutPanel1.Controls.Add(this.checkMiniParseClickthru, 1, 1);
             this.tableLayoutPanel1.Controls.Add(this.panel1, 0, 11);
             this.tableLayoutPanel1.Controls.Add(this.tableLayoutPanel2, 1, 3);
-            this.tableLayoutPanel1.Controls.Add(this.comboMiniParseSortType, 1, 5);
-            this.tableLayoutPanel1.Controls.Add(this.nudMaxFrameRate, 1, 6);
-            this.tableLayoutPanel1.Controls.Add(this.label13, 1, 10);
-            this.tableLayoutPanel1.Controls.Add(this.label7, 0, 7);
-            this.tableLayoutPanel1.Controls.Add(this.label8, 0, 8);
-            this.tableLayoutPanel1.Controls.Add(this.checkEnableGlobalHotkey, 1, 7);
-            this.tableLayoutPanel1.Controls.Add(this.textGlobalHotkey, 1, 8);
+            this.tableLayoutPanel1.Controls.Add(this.nudMaxFrameRate, 1, 4);
+            this.tableLayoutPanel1.Controls.Add(this.label13, 1, 8);
+            this.tableLayoutPanel1.Controls.Add(this.label7, 0, 5);
+            this.tableLayoutPanel1.Controls.Add(this.label8, 0, 6);
+            this.tableLayoutPanel1.Controls.Add(this.checkEnableGlobalHotkey, 1, 5);
+            this.tableLayoutPanel1.Controls.Add(this.textGlobalHotkey, 1, 6);
             this.tableLayoutPanel1.Controls.Add(this.label9, 0, 2);
             this.tableLayoutPanel1.Controls.Add(this.checkLock, 1, 2);
-            this.tableLayoutPanel1.Controls.Add(this.label10, 0, 9);
-            this.tableLayoutPanel1.Controls.Add(this.comboHotkeyType, 1, 9);
+            this.tableLayoutPanel1.Controls.Add(this.label10, 0, 7);
+            this.tableLayoutPanel1.Controls.Add(this.comboHotkeyType, 1, 7);
             this.tableLayoutPanel1.Name = "tableLayoutPanel1";
             // 
             // label6
@@ -99,19 +95,13 @@
             // 
             // label5
             // 
-            resources.ApplyResources(this.label5, "label5");
-            this.label5.Name = "label5";
-            // 
-            // textMiniParseSortKey
-            // 
-            resources.ApplyResources(this.textMiniParseSortKey, "textMiniParseSortKey");
-            this.textMiniParseSortKey.Name = "textMiniParseSortKey";
-            this.textMiniParseSortKey.TextChanged += new System.EventHandler(this.textSortKey_TextChanged);
+            //resources.ApplyResources(this.label5, "label5");
+            //this.label5.Name = "label5";
             // 
             // label4
             // 
-            resources.ApplyResources(this.label4, "label4");
-            this.label4.Name = "label4";
+            //resources.ApplyResources(this.label4, "label4");
+            //this.label4.Name = "label4";
             // 
             // label2
             // 
@@ -130,8 +120,8 @@
             // 
             // checkMiniParseVisible
             // 
-            resources.ApplyResources(this.checkMiniParseVisible, "checkMiniParseVisible");
-            this.checkMiniParseVisible.Name = "checkMiniParseVisible";
+            resources.ApplyResources(this.checkMiniParseVisible, "checkLogParseVisible");
+            this.checkMiniParseVisible.Name = "checkLogParseVisible";
             this.checkMiniParseVisible.UseVisualStyleBackColor = true;
             this.checkMiniParseVisible.CheckedChanged += new System.EventHandler(this.checkWindowVisible_CheckedChanged);
             // 
@@ -152,60 +142,53 @@
             // tableLayoutPanel3
             // 
             resources.ApplyResources(this.tableLayoutPanel3, "tableLayoutPanel3");
-            this.tableLayoutPanel3.Controls.Add(this.buttonMiniParseCopyActXiv, 0, 0);
-            this.tableLayoutPanel3.Controls.Add(this.buttonMiniParseOpenDevTools, 1, 0);
-            this.tableLayoutPanel3.Controls.Add(this.buttonMiniParseReloadBrowser, 2, 0);
+            this.tableLayoutPanel3.Controls.Add(this.buttonLogParseCopyActXiv, 0, 0);
+            this.tableLayoutPanel3.Controls.Add(this.buttonLogParseOpenDevTools, 1, 0);
+            this.tableLayoutPanel3.Controls.Add(this.buttonLogParseReloadBrowser, 2, 0);
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
             // 
-            // buttonMiniParseCopyActXiv
+            // buttonLogParseCopyActXiv
             // 
-            resources.ApplyResources(this.buttonMiniParseCopyActXiv, "buttonMiniParseCopyActXiv");
-            this.buttonMiniParseCopyActXiv.Name = "buttonMiniParseCopyActXiv";
-            this.buttonMiniParseCopyActXiv.UseVisualStyleBackColor = true;
-            this.buttonMiniParseCopyActXiv.Click += new System.EventHandler(this.buttonCopyActXiv_Click);
+            resources.ApplyResources(this.buttonLogParseCopyActXiv, "buttonLogParseCopyActXiv");
+            this.buttonLogParseCopyActXiv.Name = "buttonLogParseCopyActXiv";
+            this.buttonLogParseCopyActXiv.UseVisualStyleBackColor = true;
+            this.buttonLogParseCopyActXiv.Click += new System.EventHandler(this.buttonCopyActXiv_Click);
             // 
-            // buttonMiniParseOpenDevTools
+            // buttonLogParseOpenDevTools
             // 
-            resources.ApplyResources(this.buttonMiniParseOpenDevTools, "buttonMiniParseOpenDevTools");
-            this.buttonMiniParseOpenDevTools.Name = "buttonMiniParseOpenDevTools";
-            this.buttonMiniParseOpenDevTools.UseVisualStyleBackColor = true;
-            this.buttonMiniParseOpenDevTools.Click += new System.EventHandler(this.buttonMiniParseOpenDevTools_Click);
-            this.buttonMiniParseOpenDevTools.MouseDown += new System.Windows.Forms.MouseEventHandler(this.buttonMiniParseOpenDevTools_RClick);
+            resources.ApplyResources(this.buttonLogParseOpenDevTools, "buttonLogParseOpenDevTools");
+            this.buttonLogParseOpenDevTools.Name = "buttonLogParseOpenDevTools";
+            this.buttonLogParseOpenDevTools.UseVisualStyleBackColor = true;
+            this.buttonLogParseOpenDevTools.Click += new System.EventHandler(this.buttonLogParseOpenDevTools_Click);
+            this.buttonLogParseOpenDevTools.MouseDown += new System.Windows.Forms.MouseEventHandler(this.buttonLogParseOpenDevTools_RClick);
             // 
-            // buttonMiniParseReloadBrowser
+            // buttonLogParseReloadBrowser
             // 
-            resources.ApplyResources(this.buttonMiniParseReloadBrowser, "buttonMiniParseReloadBrowser");
-            this.buttonMiniParseReloadBrowser.Name = "buttonMiniParseReloadBrowser";
-            this.buttonMiniParseReloadBrowser.UseVisualStyleBackColor = true;
-            this.buttonMiniParseReloadBrowser.Click += new System.EventHandler(this.buttonReloadBrowser_Click);
+            resources.ApplyResources(this.buttonLogParseReloadBrowser, "buttonLogParseReloadBrowser");
+            this.buttonLogParseReloadBrowser.Name = "buttonLogParseReloadBrowser";
+            this.buttonLogParseReloadBrowser.UseVisualStyleBackColor = true;
+            this.buttonLogParseReloadBrowser.Click += new System.EventHandler(this.buttonReloadBrowser_Click);
             // 
             // tableLayoutPanel2
             // 
             resources.ApplyResources(this.tableLayoutPanel2, "tableLayoutPanel2");
-            this.tableLayoutPanel2.Controls.Add(this.textMiniParseUrl, 0, 0);
-            this.tableLayoutPanel2.Controls.Add(this.buttonMiniParseSelectFile, 1, 0);
+            this.tableLayoutPanel2.Controls.Add(this.textLogParseUrl, 0, 0);
+            this.tableLayoutPanel2.Controls.Add(this.buttonLogParseSelectFile, 1, 0);
             this.tableLayoutPanel2.Name = "tableLayoutPanel2";
             // 
-            // textMiniParseUrl
+            // textLogParseUrl
             // 
-            resources.ApplyResources(this.textMiniParseUrl, "textMiniParseUrl");
-            this.textMiniParseUrl.Name = "textMiniParseUrl";
-            this.textMiniParseUrl.TextChanged += new System.EventHandler(this.textUrl_TextChanged);
-            this.textMiniParseUrl.Leave += new System.EventHandler(this.textMiniParseUrl_Leave);
+            resources.ApplyResources(this.textLogParseUrl, "textLogParseUrl");
+            this.textLogParseUrl.Name = "textLogParseUrl";
+            this.textLogParseUrl.TextChanged += new System.EventHandler(this.textUrl_TextChanged);
+            this.textLogParseUrl.Leave += new System.EventHandler(this.textLogParseUrl_Leave);
             // 
-            // buttonMiniParseSelectFile
+            // buttonLogParseSelectFile
             // 
-            resources.ApplyResources(this.buttonMiniParseSelectFile, "buttonMiniParseSelectFile");
-            this.buttonMiniParseSelectFile.Name = "buttonMiniParseSelectFile";
-            this.buttonMiniParseSelectFile.UseVisualStyleBackColor = true;
-            this.buttonMiniParseSelectFile.Click += new System.EventHandler(this.buttonSelectFile_Click);
-            // 
-            // comboMiniParseSortType
-            // 
-            resources.ApplyResources(this.comboMiniParseSortType, "comboMiniParseSortType");
-            this.comboMiniParseSortType.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
-            this.comboMiniParseSortType.FormattingEnabled = true;
-            this.comboMiniParseSortType.Name = "comboMiniParseSortType";
+            resources.ApplyResources(this.buttonLogParseSelectFile, "buttonLogParseSelectFile");
+            this.buttonLogParseSelectFile.Name = "buttonLogParseSelectFile";
+            this.buttonLogParseSelectFile.UseVisualStyleBackColor = true;
+            this.buttonLogParseSelectFile.Click += new System.EventHandler(this.buttonSelectFile_Click);
             // 
             // nudMaxFrameRate
             // 
@@ -279,13 +262,13 @@
             this.comboHotkeyType.FormattingEnabled = true;
             this.comboHotkeyType.Name = "comboHotkeyType";
             // 
-            // MiniParseConfigPanel
+            // LogParseConfigPanel
             // 
             resources.ApplyResources(this, "$this");
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.Transparent;
             this.Controls.Add(this.tableLayoutPanel1);
-            this.Name = "MiniParseConfigPanel";
+            this.Name = "LogParseConfigPanel";
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel1.PerformLayout();
             this.panel1.ResumeLayout(false);
@@ -302,9 +285,8 @@
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel1;
         private System.Windows.Forms.Label label13;
         private System.Windows.Forms.Label label6;
-        private System.Windows.Forms.Label label5;
-        private System.Windows.Forms.TextBox textMiniParseSortKey;
-        private System.Windows.Forms.Label label4;
+        //private System.Windows.Forms.Label label5;
+        //private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label1;
@@ -312,13 +294,12 @@
         private System.Windows.Forms.CheckBox checkMiniParseClickthru;
         private System.Windows.Forms.Panel panel1;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel3;
-        private System.Windows.Forms.Button buttonMiniParseReloadBrowser;
-        private System.Windows.Forms.Button buttonMiniParseOpenDevTools;
-        private System.Windows.Forms.Button buttonMiniParseCopyActXiv;
+        private System.Windows.Forms.Button buttonLogParseReloadBrowser;
+        private System.Windows.Forms.Button buttonLogParseOpenDevTools;
+        private System.Windows.Forms.Button buttonLogParseCopyActXiv;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel2;
-        private System.Windows.Forms.TextBox textMiniParseUrl;
-        private System.Windows.Forms.Button buttonMiniParseSelectFile;
-        private System.Windows.Forms.ComboBox comboMiniParseSortType;
+        private System.Windows.Forms.TextBox textLogParseUrl;
+        private System.Windows.Forms.Button buttonLogParseSelectFile;
         private System.Windows.Forms.NumericUpDown nudMaxFrameRate;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label8;

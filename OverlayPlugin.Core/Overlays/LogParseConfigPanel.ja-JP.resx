@@ -117,34 +117,55 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="label7.Text" xml:space="preserve">
-    <value>최대 프레임 레이트</value>
+  <data name="label6.Text" xml:space="preserve">
+    <value>最大フレームレート</value>
   </data>
-  <data name="label8.Text" xml:space="preserve">
-    <value>클릭 무시</value>
+  <data name="label5.Text" xml:space="preserve">
+    <value>ソートタイプ</value>
   </data>
-  <data name="label9.Text" xml:space="preserve">
-    <value>오버레이 표시</value>
-  </data>
-  <data name="buttonCopyVariable.Text" xml:space="preserve">
-    <value>업데이트 값 복사</value>
-  </data>
-  <data name="buttonOpenDevTools.Text" xml:space="preserve">
-    <value>개발자 도구 열기</value>
-  </data>
-  <data name="buttonReloadBrowser.Text" xml:space="preserve">
-    <value>새로고침</value>
-  </data>
-  <data name="label12.Text" xml:space="preserve">
-    <value>※ 프레임 레이트나 핫 키 설정을 적용하려면 플러그인을 다시 시작해야 합니다.</value>
-  </data>
-  <data name="label1.Text" xml:space="preserve">
-    <value>글로벌 핫 키 사용</value>
+  <data name="label4.Text" xml:space="preserve">
+    <value>含めるログ</value>
   </data>
   <data name="label2.Text" xml:space="preserve">
-    <value>글로벌 핫 키</value>
+    <value>クリックを透過させる</value>
   </data>
   <data name="label3.Text" xml:space="preserve">
-    <value>위치 잠금</value>
+    <value>オーバーレイを表示する</value>
+  </data>
+  <data name="label1.Text" xml:space="preserve">
+    <value>表示するURL</value>
+  </data>
+  <data name="buttonLogParseCopyActXiv.Text" xml:space="preserve">
+    <value>変数をクリップボードにコピー</value>
+  </data>
+  <data name="buttonLogParseOpenDevTools.Text" xml:space="preserve">
+    <value>DevToolsを開く</value>
+  </data>
+  <data name="buttonLogParseReloadBrowser.Text" xml:space="preserve">
+    <value>オーバーレイの表示をリロード</value>
+  </data>
+  <data name="label13.Text" xml:space="preserve">
+    <value>※最大フレームレート、およびホットキーの変更を有効にするためにはプラグインの再起動が必要です</value>
+  </data>
+  <data name="label7.Text" xml:space="preserve">
+    <value>グローバルホットキーを使用</value>
+  </data>
+  <data name="label8.Text" xml:space="preserve">
+    <value>グローバルホットキー</value>
+  </data>
+  <data name="label9.Text" xml:space="preserve">
+    <value>移動とリサイズを制限する</value>
+  </data>
+  <data name="label10.Text" xml:space="preserve">
+    <value>ホットキータイプ</value>
+  </data>
+  <data name="checkIncludeEchoes.Text" xml:space="preserve">
+    <value>/echo</value>
+  </data>
+  <data name="checkIncludeChat.Text" xml:space="preserve">
+    <value>残りの会話</value>
+  </data>
+  <data name="checkIncludeCombatLog.Text" xml:space="preserve">
+    <value>残りのログ</value>
   </data>
 </root>

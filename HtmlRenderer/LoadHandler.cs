@@ -22,6 +22,8 @@ namespace RainbowMage.HtmlRenderer
 
             var message = CefProcessMessage.Create("SetOverlayAPI");
             message.Arguments.SetString(0, frame.Name);
+            message.Arguments.SetString(1, this.renderer.OverlayName);
+            message.Arguments.SetString(2, this.renderer.OverlayVersion);
             browser.SendProcessMessage(CefProcessId.Renderer, message);
         }
 

@@ -61,13 +61,13 @@ namespace RainbowMage.OverlayPlugin
 
         public bool Locked { get; set; }
 
-        public OverlayForm(string url, int maxFrameRate = 30)
+        public OverlayForm(string overlayVersion,string overlayName, string url, int maxFrameRate = 30)
         {
             InitializeComponent();
             Renderer.Initialize();
 
             this.maxFrameRate = maxFrameRate;
-            this.Renderer = new Renderer();
+            this.Renderer = new Renderer(overlayVersion, overlayName);
             this.Renderer.Render += renderer_Render;
             this.MouseWheel += OverlayForm_MouseWheel;
 
@@ -285,7 +285,6 @@ namespace RainbowMage.OverlayPlugin
             this.IsLoaded = true;
 
             UpdateMouseClickThru();
-            UpdateRender();
 
             zorderCorrector = new System.Threading.Timer((state) =>
             {
@@ -476,31 +475,33 @@ namespace RainbowMage.OverlayPlugin
         {
             lock (xivProcLocker)
             {
-                // プロセスがすでに終了してるならプロセス情報をクリア
-                if (xivProc != null && xivProc.HasExited)
+                try
                 {
-                    xivProc = null;
-                }
-
-                // プロセス情報がなく、tryIntervalよりも時間が経っているときは新たに取得を試みる
-                if (xivProc == null && DateTime.Now - lastTry > tryInterval)
-                {
-                    xivProc = Process.GetProcessesByName("ffxiv").FirstOrDefault();
-                    if (xivProc == null)
+                    // プロセスがすでに終了してるならプロセス情報をクリア
+                    if (xivProc != null && xivProc.HasExited)
                     {
-                        xivProc = Process.GetProcessesByName("ffxiv_dx11").FirstOrDefault();
+                        xivProc = null;
                     }
-                    lastTry = DateTime.Now;
-                }
 
-                if (xivProc != null)
-                {
-                    return xivProc.MainWindowHandle;
+                    // プロセス情報がなく、tryIntervalよりも時間が経っているときは新たに取得を試みる
+                    if (xivProc == null && DateTime.Now - lastTry > tryInterval)
+                    {
+                        xivProc = Process.GetProcessesByName("ffxiv").FirstOrDefault();
+                        if (xivProc == null)
+                        {
+                            xivProc = Process.GetProcessesByName("ffxiv_dx11").FirstOrDefault();
+                        }
+                        lastTry = DateTime.Now;
+                    }
+
+                    if (xivProc != null)
+                    {
+                        return xivProc.MainWindowHandle;
+                    }
                 }
-                else
-                {
-                    return IntPtr.Zero;
-                }
+                catch (System.ComponentModel.Win32Exception) { }
+
+                return IntPtr.Zero;
             }
         }
 

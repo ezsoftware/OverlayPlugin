@@ -24,6 +24,7 @@ namespace RainbowMage.OverlayPlugin
         public event EventHandler<GlobalHotkeyChangedEventArgs> GlobalHotkeyChanged;
         public event EventHandler<GlobalHotkeyChangedEventArgs> GlobalHotkeyModifiersChanged;
         public event EventHandler<LockStateChangedEventArgs> LockChanged;
+        public event EventHandler<GlobalHotkeyTypeChangedEventArgs> GlobalHotkeyTypeChanged;
 
         /// <summary>
         /// ユーザーが設定したオーバーレイの名前を取得または設定します。
@@ -211,6 +212,27 @@ namespace RainbowMage.OverlayPlugin
             }
         }
 
+        private GlobalHotkeyType globalHotkeyType;
+        [XmlElement("GlobalHotkeyType")]
+        public GlobalHotkeyType GlobalHotkeyType
+        {
+            get
+            {
+                return this.globalHotkeyType;
+            }
+            set
+            {
+                if(this.globalHotkeyType != value)
+                {
+                    this.globalHotkeyType = value;
+                    if (GlobalHotkeyTypeChanged != null)
+                    {
+                        GlobalHotkeyTypeChanged(this, new GlobalHotkeyTypeChangedEventArgs(this.globalHotkeyType));
+                    }
+                }
+            }
+        }
+        
         private bool isLocked;
         /// <summary>
         /// オーバーレイがマウスの入力を透過するかどうかを取得または設定します。
@@ -247,9 +269,17 @@ namespace RainbowMage.OverlayPlugin
             this.globalHotkeyEnabled = false;
             this.GlobalHotkey = Keys.None;
             this.globalHotkeyModifiers = Keys.None;
+            this.globalHotkeyType = GlobalHotkeyType.ToggleVisible;
         }
 
         [XmlIgnore]
         public abstract Type OverlayType { get; }
+    }
+
+    public enum GlobalHotkeyType
+    {
+        ToggleVisible,
+        ToggleClickthru,
+        ToggleLock
     }
 }

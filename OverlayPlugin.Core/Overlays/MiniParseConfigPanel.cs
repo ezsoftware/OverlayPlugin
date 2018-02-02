@@ -24,6 +24,13 @@ namespace RainbowMage.OverlayPlugin.Overlays
             new KeyValuePair<string, MiniParseSortType>(Localization.GetText(TextItem.SortNumberDescending), MiniParseSortType.NumericDescending)
         };
 
+        static readonly List<KeyValuePair<string, GlobalHotkeyType>> hotkeyTypeDict = new List<KeyValuePair<string, GlobalHotkeyType>>()
+        {
+            new KeyValuePair<string, GlobalHotkeyType>(Localization.GetText(TextItem.ToggleVisible), GlobalHotkeyType.ToggleVisible),
+            new KeyValuePair<string, GlobalHotkeyType>(Localization.GetText(TextItem.ToggleClickthru), GlobalHotkeyType.ToggleClickthru),
+            new KeyValuePair<string, GlobalHotkeyType>(Localization.GetText(TextItem.ToggleLock), GlobalHotkeyType.ToggleLock)
+        };
+
         public MiniParseConfigPanel(MiniParseOverlay overlay)
         {
             InitializeComponent();
@@ -51,6 +58,11 @@ namespace RainbowMage.OverlayPlugin.Overlays
             this.checkEnableGlobalHotkey.Checked = config.GlobalHotkeyEnabled;
             this.textGlobalHotkey.Enabled = this.checkEnableGlobalHotkey.Checked;
             this.textGlobalHotkey.Text = Util.GetHotkeyString(config.GlobalHotkeyModifiers, config.GlobalHotkey);
+            this.comboHotkeyType.DisplayMember = "Key";
+            this.comboHotkeyType.ValueMember = "Value";
+            this.comboHotkeyType.DataSource = hotkeyTypeDict;
+            this.comboHotkeyType.SelectedValue = config.GlobalHotkeyType;
+            this.comboHotkeyType.SelectedIndexChanged += ComboHotkeyMode_SelectedIndexChanged;
         }
 
         private void SetupConfigEventHandlers()
@@ -126,6 +138,13 @@ namespace RainbowMage.OverlayPlugin.Overlays
                     this.checkLock.Checked = e.IsLocked;
                 });
             };
+            this.config.GlobalHotkeyTypeChanged += (o, e) =>
+            {
+                this.InvokeIfRequired(() =>
+                {
+                    this.comboHotkeyType.SelectedValue = e.NewHotkeyType;
+                });
+            };
         }
 
         private void InvokeIfRequired(Action action)
@@ -169,6 +188,12 @@ namespace RainbowMage.OverlayPlugin.Overlays
         {
             var value = (MiniParseSortType)this.comboMiniParseSortType.SelectedValue;
             this.config.SortType = value;
+        }
+
+        private void ComboHotkeyMode_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var value = (GlobalHotkeyType)this.comboHotkeyType.SelectedValue;
+            this.config.GlobalHotkeyType = value;
         }
 
         private void nudMaxFrameRate_ValueChanged(object sender, EventArgs e)

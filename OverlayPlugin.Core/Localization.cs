@@ -17,7 +17,10 @@ namespace RainbowMage.OverlayPlugin
         SortStringAscending,
         SortStringDescending,
         SortNumberAscending,
-        SortNumberDescending
+        SortNumberDescending,
+        ToggleVisible,
+        ToggleClickthru,
+        ToggleLock
     }
 
     public static class Localization
@@ -60,6 +63,15 @@ namespace RainbowMage.OverlayPlugin
             dict[TextItem.SortNumberDescending, "ja"] = "数値 - 降順";
             dict[TextItem.SortNumberDescending, "ko"] = "숫자 - 내림차순";
 
+            dict[TextItem.ToggleVisible, ""] = "Toggle visible/hide";
+            dict[TextItem.ToggleVisible, "ja"] = "表示/非表示の切り替え";
+            dict[TextItem.ToggleVisible, "ko"] = "표시 / 숨기기 토글";
+            dict[TextItem.ToggleClickthru, ""] = "Toggle clickthru";
+            dict[TextItem.ToggleClickthru, "ja"] = "クリック透過の切り替え";
+            dict[TextItem.ToggleClickthru, "ko"] = "Toggle clickthru";
+            dict[TextItem.ToggleLock, ""] = "Toggle lock";
+            dict[TextItem.ToggleLock, "ja"] = "移動/リサイズ制限の切り替え";
+            dict[TextItem.ToggleLock, "ko"] = "Toggle lock";
         }
 
         public static string GetText(TextItem item)

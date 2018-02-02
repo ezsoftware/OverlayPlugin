@@ -135,14 +135,14 @@
   <data name="label1.Text" xml:space="preserve">
     <value>表示するURL</value>
   </data>
-  <data name="buttonMiniParseReloadBrowser.Text" xml:space="preserve">
-    <value>オーバーレイの表示をリロード</value>
+  <data name="buttonMiniParseCopyActXiv.Text" xml:space="preserve">
+    <value>変数をクリップボードにコピー</value>
   </data>
   <data name="buttonMiniParseOpenDevTools.Text" xml:space="preserve">
     <value>DevToolsを開く</value>
   </data>
-  <data name="buttonMiniParseCopyActXiv.Text" xml:space="preserve">
-    <value>変数をクリップボードにコピー</value>
+  <data name="buttonMiniParseReloadBrowser.Text" xml:space="preserve">
+    <value>オーバーレイの表示をリロード</value>
   </data>
   <data name="label13.Text" xml:space="preserve">
     <value>※最大フレームレート、およびホットキーの変更を有効にするためにはプラグインの再起動が必要です</value>
@@ -155,5 +155,8 @@
   </data>
   <data name="label9.Text" xml:space="preserve">
     <value>移動とリサイズを制限する</value>
+  </data>
+  <data name="label10.Text" xml:space="preserve">
+    <value>ホットキータイプ</value>
   </data>
 </root>

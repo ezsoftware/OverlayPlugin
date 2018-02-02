@@ -16,27 +16,42 @@ namespace RainbowMage.HtmlRenderer
 
         public static event EventHandler<BroadcastMessageEventArgs> BroadcastMessage;
         public static event EventHandler<SendMessageEventArgs> SendMessage;
+        public static event EventHandler<SendMessageEventArgs> OverlayMessage;
         public static event EventHandler<RendererFeatureRequestEventArgs> RendererFeatureRequest;
 
-        public List<CefBrowser> Browsers { get; private set; }
+        // Guards access to |allBrowsers| across threads.
+        private System.Threading.SemaphoreSlim allBrowsersSemaphore = new System.Threading.SemaphoreSlim(1);
+        // Set to empty on the main thread, and to non-empty on the Cef thread. When an addon opens a window
+        // via javascript it is added to this list on the Cef thread, and it is removed there when the window
+        // is closed. The first browser in this list is stable and can be accessed from the main thread, since
+        // it will only be destroyed/removed on the main thread. Any other browser in the list can only be
+        // accessed while the |allBrowsersSemaphore| semaphore is held, so we do not provide a way to read
+        // or copy this list directly to clients.
+        private List<CefBrowser> allBrowsers = new List<CefBrowser>();
+
+        // When a navigation occurs, the Browser is destroyed and recreated. The Browser becomes
+        // null immediately on the addon main thread, and will become non-null later on the Cef
+        // thread. Once it becomes non-null, the pointer will not change until another
+        // navigation.
         public CefBrowser Browser
         {
             get
             {
-                if (this.Browsers == null || this.Browsers.Count == 0)
-                    return null;
-                return this.Browsers[0];
+                allBrowsersSemaphore.Wait();
+                CefBrowser b = this.allBrowsers.FirstOrDefault();
+                allBrowsersSemaphore.Release();
+                return b;
             }
         }
-        private CefBrowser LastBrowser
-        {
-            get
-            {
-                if (this.Browsers == null || this.Browsers.Count == 0)
-                    return null;
-                return this.Browsers[this.Browsers.Count - 1];
-            }
+
+        public string OverlayVersion {
+            get { return overlayVersion; }
         }
+
+        public string OverlayName {
+          get { return overlayName; }
+        }
+
         private Client Client { get; set; }
 
         private int clickCount;
@@ -44,10 +59,13 @@ namespace RainbowMage.HtmlRenderer
         private DateTime lastClickTime;
         private int lastClickPosX;
         private int lastClickPosY;
+        private string overlayVersion;
+        private string overlayName;
 
-        public Renderer()
+        public Renderer(string overlayVersion, string overlayName)
         {
-            
+            this.overlayVersion = overlayVersion;
+            this.overlayName = overlayName;
         }
 
         public void BeginRender(int width, int height, string url, int maxFrameRate = 30)
@@ -71,24 +89,24 @@ namespace RainbowMage.HtmlRenderer
 
         public void EndRender()
         {
-            if (this.Browsers != null)
+            // We hold the semaphore and clear |this.allBrowsers| to ensure the first browser in the
+            // list is gone immediately on the main thread. It may later be added on the Cef thread.
+            this.allBrowsersSemaphore.Wait();
+            if (this.allBrowsers.Count > 0)
             {
-                this.Browsers.ForEach((browser) =>
+                foreach (var browser in this.allBrowsers)
                 {
-                    if (browser != null)
+                    var host = browser.GetHost();
+                    if (host != null)
                     {
-                        var host = browser.GetHost();
-                        if (host != null)
-                        {
-                            host.CloseBrowser(true);
-                            host.Dispose();
-                        }
-                        browser.Dispose();
-                        browser = null;
+                        host.CloseBrowser(true);
+                        host.Dispose();
                     }
-                });
-                this.Browsers = null;
+                    browser.Dispose();
+                }
+                this.allBrowsers.Clear();
             }
+            this.allBrowsersSemaphore.Release();
         }
 
         public void Reload()
@@ -197,33 +215,39 @@ namespace RainbowMage.HtmlRenderer
             }
         }
 
-        public void showDevTools(bool firstWindow = true)
+        public void showDevTools(bool firstwindow = true)
         {
-            if (this.Browser != null)
+            this.allBrowsersSemaphore.Wait();
+            if (this.allBrowsers.Count > 0)
             {
-                CefBrowser b = firstWindow ? this.Browser : this.LastBrowser;
+                CefBrowser b = firstwindow ? this.allBrowsers.First() : this.allBrowsers.Last();
                 CefWindowInfo wi = CefWindowInfo.Create();
                 wi.SetAsPopup(b.GetHost().GetWindowHandle(), "DevTools");
                 b.GetHost().ShowDevTools(wi, this.Client, new CefBrowserSettings(), new CefPoint());
             }
+            this.allBrowsersSemaphore.Release();
         }
 
+        // Runs on the Cef thread.
         internal void OnCreated(CefBrowser browser)
         {
-            if (this.Browsers == null)
-            {
-                this.Browsers = new List<CefBrowser>();
-            }
-            this.Browsers.Add(browser);
             browser.GetHost().SendFocusEvent(true);
+            this.allBrowsersSemaphore.Wait();
+            this.allBrowsers.Add(browser);
+            this.allBrowsersSemaphore.Release();
         }
 
+        // Runs on the Cef thread.
         internal void OnBeforeClose(CefBrowser browser)
         {
-            if (this.Browsers != null)
-            {
-                this.Browsers.Remove(this.Browsers.FindLast(b => b.IsSame(browser)));
-            }
+          this.allBrowsersSemaphore.Wait();
+          int index = this.allBrowsers.FindIndex((b) => b.Identifier == browser.Identifier);
+          if (index > 0) {
+            // The first browser window is only removed from the list on the main thread.
+            System.Diagnostics.Debug.Assert(index > 0);
+            this.allBrowsers.RemoveAt(index);
+          }
+          this.allBrowsersSemaphore.Release();
         }
 
         internal void OnPaint(CefBrowser browser, IntPtr buffer, int width, int height, CefRectangle[] dirtyRects)
@@ -274,6 +298,12 @@ namespace RainbowMage.HtmlRenderer
             }
         }
 
+        internal static void OnOverlayMessage(object sender, SendMessageEventArgs e) {
+            if (OverlayMessage != null) {
+                OverlayMessage(sender, e);
+            }
+        }
+
         internal static void OnRendererFeatureRequest(object sender, RendererFeatureRequestEventArgs e)
         {
             if (RendererFeatureRequest != null)
@@ -304,6 +334,7 @@ namespace RainbowMage.HtmlRenderer
 
                 var cefSettings = new CefSettings
                 {
+                    Locale = System.Globalization.CultureInfo.CurrentCulture.Name,
                     CachePath = "cache",
                     SingleProcess = true,
                     MultiThreadedMessageLoop = true,
@@ -326,14 +357,16 @@ namespace RainbowMage.HtmlRenderer
 
         public void ExecuteScript(string script)
         {
-            this.Browsers.ForEach((b) =>
+            this.allBrowsersSemaphore.Wait();
+            foreach (var browser in this.allBrowsers)
             {
-                foreach (var frameId in b.GetFrameIdentifiers())
+                foreach (var frameId in browser.GetFrameIdentifiers())
                 {
-                    var frame = b.GetFrame(frameId);
+                    var frame = browser.GetFrame(frameId);
                     frame.ExecuteJavaScript(script, null, 0);
                 }
-            });
+            }
+            this.allBrowsersSemaphore.Release();
         }
     }
 

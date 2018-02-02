@@ -196,8 +196,11 @@ namespace RainbowMage.OverlayPlugin
 
         private void buttonRemoveOverlay_Click(object sender, EventArgs e)
         {
-            if (this.tabControl.SelectedTab.Equals(this.tabPageMain)) // oh no
+            if (this.tabControl.SelectedTab.Equals(this.tabPageMain))
                 return;
+
+            if (tabControl.SelectedTab == null) // ???
+                tabControl.SelectedTab = tabControl.TabPages[0];
             
             string selectedOverlayName = tabControl.SelectedTab.Name;
             int selectedOverlayIndex = tabControl.TabPages.IndexOf(tabControl.SelectedTab);

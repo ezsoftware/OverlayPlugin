@@ -10,10 +10,10 @@ using System.Windows.Forms;
 
 namespace RainbowMage.OverlayPlugin.Overlays
 {
-    public partial class SpellTimerConfigPanel : UserControl
+    public partial class LogParseConfigPanel : UserControl
     {
-        private SpellTimerOverlay overlay;
-        private SpellTimerOverlayConfig config;
+        private LogParseOverlayConfig config;
+        private LogParseOverlay overlay;
 
         static readonly List<KeyValuePair<string, GlobalHotkeyType>> hotkeyTypeDict = new List<KeyValuePair<string, GlobalHotkeyType>>()
         {
@@ -22,24 +22,24 @@ namespace RainbowMage.OverlayPlugin.Overlays
             new KeyValuePair<string, GlobalHotkeyType>(Localization.GetText(TextItem.ToggleLock), GlobalHotkeyType.ToggleLock)
         };
 
-        public SpellTimerConfigPanel(SpellTimerOverlay overlay)
+        public LogParseConfigPanel(LogParseOverlay overlay)
         {
             InitializeComponent();
 
             this.overlay = overlay;
             this.config = overlay.Config;
 
-            SetupConfigEventHandlers();
             SetupControlProperties();
+            SetupConfigEventHandlers();
         }
 
         private void SetupControlProperties()
         {
-            this.checkBoxVisible.Checked = this.config.IsVisible;
-            this.checkBoxClickThru.Checked = this.config.IsClickThru;
+            this.checkMiniParseVisible.Checked = config.IsVisible;
+            this.checkMiniParseClickthru.Checked = config.IsClickThru;
             this.checkLock.Checked = config.IsLocked;
-            this.textBoxUrl.Text = this.config.Url;
-            this.nudMaxFrameRate.Value = this.config.MaxFrameRate;
+            this.textLogParseUrl.Text = config.Url;
+            this.nudMaxFrameRate.Value = config.MaxFrameRate;
             this.checkEnableGlobalHotkey.Checked = config.GlobalHotkeyEnabled;
             this.textGlobalHotkey.Enabled = this.checkEnableGlobalHotkey.Checked;
             this.textGlobalHotkey.Text = Util.GetHotkeyString(config.GlobalHotkeyModifiers, config.GlobalHotkey);
@@ -50,33 +50,27 @@ namespace RainbowMage.OverlayPlugin.Overlays
             this.comboHotkeyType.SelectedIndexChanged += ComboHotkeyMode_SelectedIndexChanged;
         }
 
-        private void ComboHotkeyMode_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            var value = (GlobalHotkeyType)this.comboHotkeyType.SelectedValue;
-            this.config.GlobalHotkeyType = value;
-        }
-
         private void SetupConfigEventHandlers()
         {
             this.config.VisibleChanged += (o, e) =>
             {
                 this.InvokeIfRequired(() =>
                 {
-                    this.checkBoxVisible.Checked = e.IsVisible;
+                    this.checkMiniParseVisible.Checked = e.IsVisible;
                 });
             };
             this.config.ClickThruChanged += (o, e) =>
             {
                 this.InvokeIfRequired(() =>
                 {
-                    this.checkBoxClickThru.Checked = e.IsClickThru;
+                    this.checkMiniParseClickthru.Checked = e.IsClickThru;
                 });
             };
             this.config.UrlChanged += (o, e) =>
             {
                 this.InvokeIfRequired(() =>
                 {
-                    this.textBoxUrl.Text = e.NewUrl;
+                    this.textLogParseUrl.Text = e.NewUrl;
                 });
             };
             this.config.MaxFrameRateChanged += (o, e) =>
@@ -115,6 +109,13 @@ namespace RainbowMage.OverlayPlugin.Overlays
                     this.checkLock.Checked = e.IsLocked;
                 });
             };
+            this.config.GlobalHotkeyTypeChanged += (o, e) =>
+            {
+                this.InvokeIfRequired(() =>
+                {
+                    this.comboHotkeyType.SelectedValue = e.NewHotkeyType;
+                });
+            };
         }
 
         private void InvokeIfRequired(Action action)
@@ -129,24 +130,40 @@ namespace RainbowMage.OverlayPlugin.Overlays
             }
         }
 
-        private void checkBoxVisible_CheckedChanged(object sender, EventArgs e)
+        private void checkWindowVisible_CheckedChanged(object sender, EventArgs e)
         {
-            this.config.IsVisible = this.checkBoxVisible.Checked;
+            this.config.IsVisible = checkMiniParseVisible.Checked;
         }
 
-        private void checkBoxClickThru_CheckedChanged(object sender, EventArgs e)
+        private void checkMouseClickthru_CheckedChanged(object sender, EventArgs e)
         {
-            this.config.IsClickThru = this.checkBoxClickThru.Checked;
+            this.config.IsClickThru = checkMiniParseClickthru.Checked;
         }
 
-        private void textBoxUrl_TextChanged(object sender, EventArgs e)
+        private void textUrl_TextChanged(object sender, EventArgs e)
         {
-            //this.config.Url = this.textBoxUrl.Text;
+            //this.config.Url = textLogParseUrl.Text;
         }
 
-        private void textBoxUrl_Leave(object sender, EventArgs e)
+        private void textLogParseUrl_Leave(object sender, EventArgs e)
         {
-            this.config.Url = this.textBoxUrl.Text;
+            this.config.Url = textLogParseUrl.Text;
+        }
+        
+        private void ComboHotkeyMode_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            var value = (GlobalHotkeyType)this.comboHotkeyType.SelectedValue;
+            this.config.GlobalHotkeyType = value;
+        }
+
+        private void nudMaxFrameRate_ValueChanged(object sender, EventArgs e)
+        {
+            this.config.MaxFrameRate = (int)nudMaxFrameRate.Value;
+        }
+
+        private void buttonReloadBrowser_Click(object sender, EventArgs e)
+        {
+            this.overlay.Navigate(this.config.Url);
         }
 
         private void buttonSelectFile_Click(object sender, EventArgs e)
@@ -159,43 +176,33 @@ namespace RainbowMage.OverlayPlugin.Overlays
             }
         }
 
-        private void buttonCopyVariable_Click(object sender, EventArgs e)
+        private void buttonLogParseOpenDevTools_Click(object sender, EventArgs e)
         {
-            var json = this.overlay.CreateJsonData();
+            this.overlay.Overlay.Renderer.showDevTools();
+        }
+
+        private void buttonLogParseOpenDevTools_RClick(object sender, System.Windows.Forms.MouseEventArgs e)
+        {
+            if (e.Button == MouseButtons.Right)
+                this.overlay.Overlay.Renderer.showDevTools(false);
+        }
+
+        private void buttonCopyActXiv_Click(object sender, EventArgs e)
+        {
+            var json = overlay.CreateJsonData();
             if (!string.IsNullOrWhiteSpace(json))
             {
                 Clipboard.SetText(json);
             }
         }
 
-        private void buttonOpenDevTools_Click(object sender, EventArgs e)
-        {
-            this.overlay.Overlay.Renderer.showDevTools();
-        }
-
-        private void buttonOpenDevTools_RClick(object sender, System.Windows.Forms.MouseEventArgs e)
-        {
-            if (e.Button == MouseButtons.Right)
-                this.overlay.Overlay.Renderer.showDevTools(false);
-        }
-
-        private void buttonSpellTimerReloadBrowser_Click(object sender, EventArgs e)
-        {
-            this.overlay.Navigate(this.config.Url);
-        }
-
-        private void nudMaxFrameRate_ValueChanged(object sender, EventArgs e)
-        {
-            this.config.MaxFrameRate = (int)nudMaxFrameRate.Value;
-        }
-
-        private void checkEnableGlobalHotkey_CheckedChanged(object sender, EventArgs e)
+        private void checkBoxEnableGlobalHotkey_CheckedChanged(object sender, EventArgs e)
         {
             this.config.GlobalHotkeyEnabled = this.checkEnableGlobalHotkey.Checked;
             this.textGlobalHotkey.Enabled = this.config.GlobalHotkeyEnabled;
         }
 
-        private void textGlobalHotkey_KeyDown(object sender, KeyEventArgs e)
+        private void textBoxGlobalHotkey_KeyDown(object sender, KeyEventArgs e)
         {
             e.SuppressKeyPress = true;
             var key = Util.RemoveModifiers(e.KeyCode, e.Modifiers);

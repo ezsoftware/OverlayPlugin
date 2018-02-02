@@ -129,14 +129,14 @@
   <data name="label10.Text" xml:space="preserve">
     <value>表示するURL</value>
   </data>
-  <data name="buttonReloadBrowser.Text" xml:space="preserve">
-    <value>オーバーレイの表示をリロード</value>
+  <data name="buttonCopyVariable.Text" xml:space="preserve">
+    <value>変数をクリップボードにコピー</value>
   </data>
   <data name="buttonOpenDevTools.Text" xml:space="preserve">
     <value>DevToolsを開く</value>
   </data>
-  <data name="buttonCopyVariable.Text" xml:space="preserve">
-    <value>変数をクリップボードにコピー</value>
+  <data name="buttonReloadBrowser.Text" xml:space="preserve">
+    <value>オーバーレイの表示をリロード</value>
   </data>
   <data name="label12.Text" xml:space="preserve">
     <value>※最大フレームレート、およびホットキーの変更を有効にするためにはプラグインの再起動が必要です</value>
@@ -149,5 +149,8 @@
   </data>
   <data name="label3.Text" xml:space="preserve">
     <value>移動とリサイズを制限する</value>
+  </data>
+  <data name="label4.Text" xml:space="preserve">
+    <value>ホットキータイプ</value>
   </data>
 </root>

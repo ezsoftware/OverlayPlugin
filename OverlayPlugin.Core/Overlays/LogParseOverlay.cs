@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Diagnostics;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -12,7 +13,7 @@ using Newtonsoft.Json.Linq;
 
 namespace RainbowMage.OverlayPlugin.Overlays
 {
-    public partial class MiniParseOverlay : OverlayBase<MiniParseOverlayConfig>
+    public partial class LogParseOverlay : OverlayBase<LogParseOverlayConfig>
     {
         private string prevEncounterId { get; set; }
         private DateTime prevEndDateTime { get; set; }
@@ -22,10 +23,49 @@ namespace RainbowMage.OverlayPlugin.Overlays
         private static DateTime updateStringCacheLastUpdate;
         private static readonly TimeSpan updateStringCacheExpireInterval = new TimeSpan(0, 0, 0, 0, 500); // 500 msec
 
-        public MiniParseOverlay(MiniParseOverlayConfig config)
+        public LogParseOverlay(LogParseOverlayConfig config)
             : base(config, config.Name)
         {
-            ActGlobals.oFormActMain.BeforeLogLineRead += LogLineReader;
+            // Part of ACT.SpecialSpellTimer: https://github.com/anoyetta/ACT.SpecialSpellTimer/blob/master/ACT.SpecialSpellTimer/LogBuffer.cs
+            // Copyright (c) 2014 anoyetta; Licensed under BSD-3-Clause license.
+            try
+            {
+                var fi = ActGlobals.oFormActMain.GetType().GetField(
+                    "BeforeLogLineRead",
+                    BindingFlags.NonPublic |
+                    BindingFlags.Instance |
+                    BindingFlags.GetField |
+                    BindingFlags.Public |
+                    BindingFlags.Static);
+
+                var beforeLogLineReadDelegate =
+                    fi.GetValue(ActGlobals.oFormActMain)
+                    as Delegate;
+
+                if (beforeLogLineReadDelegate != null)
+                {
+                    var handlers = beforeLogLineReadDelegate.GetInvocationList();
+
+                    // 全てのイベントハンドラを一度解除する
+                    foreach (var handler in handlers)
+                    {
+                        ActGlobals.oFormActMain.BeforeLogLineRead -= (LogLineEventDelegate)handler;
+                    }
+
+                    // スペスペのイベントハンドラを最初に登録する
+                    ActGlobals.oFormActMain.BeforeLogLineRead += LogLineReader;
+
+                    // 解除したイベントハンドラを登録し直す
+                    foreach (var handler in handlers)
+                    {
+                        ActGlobals.oFormActMain.BeforeLogLineRead += (LogLineEventDelegate)handler;
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                Log(LogLevel.Error, "AddOnBeforeLogLineRead error:", ex);
+            }
         }
 
         public override void Navigate(string url)
@@ -96,7 +136,6 @@ namespace RainbowMage.OverlayPlugin.Overlays
             var combatantTask = Task.Run(() =>
                 {
                     combatant = GetCombatantList(allies);
-                    SortCombatantList(combatant);
                 });
             Task.WaitAll(encounterTask, combatantTask);
 
@@ -128,57 +167,6 @@ namespace RainbowMage.OverlayPlugin.Overlays
             updateStringCacheLastUpdate = DateTime.Now;
 
             return result;
-        }
-
-        private void SortCombatantList(List<KeyValuePair<CombatantData, Dictionary<string, string>>> combatant)
-        {
-            // 数値で並び替え
-            if (this.Config.SortType == MiniParseSortType.NumericAscending ||
-                this.Config.SortType == MiniParseSortType.NumericDescending)
-            {
-                combatant.Sort((x, y) =>
-                {
-                    int result = 0;
-                    if (x.Value.ContainsKey(this.Config.SortKey) &&
-                        y.Value.ContainsKey(this.Config.SortKey))
-                    {
-                        double xValue, yValue;
-                        double.TryParse(x.Value[this.Config.SortKey].Replace("%", ""), out xValue);
-                        double.TryParse(y.Value[this.Config.SortKey].Replace("%", ""), out yValue);
-
-                        result = xValue.CompareTo(yValue);
-
-                        if (this.Config.SortType == MiniParseSortType.NumericDescending)
-                        {
-                            result *= -1;
-                        }
-                    }
-
-                    return result;
-                });
-            }
-            // 文字列で並び替え
-            else if (
-                this.Config.SortType == MiniParseSortType.StringAscending ||
-                this.Config.SortType == MiniParseSortType.StringDescending)
-            {
-                combatant.Sort((x, y) =>
-                {
-                    int result = 0;
-                    if (x.Value.ContainsKey(this.Config.SortKey) &&
-                        y.Value.ContainsKey(this.Config.SortKey))
-                    {
-                        result = x.Value[this.Config.SortKey].CompareTo(y.Value[this.Config.SortKey]);
-
-                        if (this.Config.SortType == MiniParseSortType.StringDescending)
-                        {
-                            result *= -1;
-                        }
-                    }
-
-                    return result;
-                });
-            }
         }
 
         private List<KeyValuePair<CombatantData, Dictionary<string, string>>> GetCombatantList(List<CombatantData> allies)

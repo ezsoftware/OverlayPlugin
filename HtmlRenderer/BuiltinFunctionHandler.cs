@@ -11,10 +11,12 @@ namespace RainbowMage.HtmlRenderer
     {
         public event EventHandler<BroadcastMessageEventArgs> BroadcastMessage;
         public event EventHandler<SendMessageEventArgs> SendMessage;
+        public event EventHandler<SendMessageEventArgs> OverlayMessage;
         public event EventHandler<EndEncounterEventArgs> EndEncounter;
 
         public const string BroadcastMessageFunctionName = "broadcastMessage";
         public const string SendMessageFunctionName = "sendMessage";
+        public const string OverlayMessageFunctionName = "overlayMessage";
         public const string EndEncounterFunctionName = "endEncounter";
 
         protected override bool Execute(string name, CefV8Value obj, CefV8Value[] arguments, out CefV8Value returnValue, out string exception)
@@ -45,6 +47,22 @@ namespace RainbowMage.HtmlRenderer
                     if (SendMessage != null)
                     {
                         SendMessage(obj, new SendMessageEventArgs(arguments[0].GetStringValue(), arguments[1].GetStringValue()));
+                    }
+                }
+                else
+                {
+                    exception = "Invalid argument count.";
+                }
+
+                return true;
+            }
+            else if (name == OverlayMessageFunctionName)
+            {
+                if (arguments.Length > 1)
+                {
+                    if (OverlayMessage != null)
+                    {
+                        OverlayMessage(obj, new SendMessageEventArgs(arguments[0].GetStringValue(), arguments[1].GetStringValue()));
                     }
                 }
                 else

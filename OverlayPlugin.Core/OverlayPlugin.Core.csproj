@@ -64,6 +64,16 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="ConfigEventArgs.cs" />
+    <Compile Include="Overlays\LogParseConfigPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Overlays\LogParseConfigPanel.Designer.cs">
+      <DependentUpon>LogParseConfigPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Overlays\LogParseLoglineReader.cs" />
+    <Compile Include="Overlays\LogParseOverlay.cs" />
+    <Compile Include="Overlays\LogParseOverlayAddon.cs" />
+    <Compile Include="Overlays\LogParseOverlayConfig.cs" />
     <Compile Include="TabControlExt.cs">
       <SubType>Component</SubType>
     </Compile>
@@ -171,6 +181,15 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Overlays\LabelOverlayConfigPanel.resx">
       <DependentUpon>LabelOverlayConfigPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Overlays\LogParseConfigPanel.ja-JP.resx">
+      <DependentUpon>LogParseConfigPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Overlays\LogParseConfigPanel.ko-KR.resx">
+      <DependentUpon>LogParseConfigPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Overlays\LogParseConfigPanel.resx">
+      <DependentUpon>LogParseConfigPanel.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Overlays\MiniParseConfigPanel.ja-JP.resx">
       <DependentUpon>MiniParseConfigPanel.cs</DependentUpon>

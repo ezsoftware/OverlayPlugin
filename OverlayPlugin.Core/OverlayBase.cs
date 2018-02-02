@@ -17,7 +17,6 @@ namespace RainbowMage.OverlayPlugin
         private KeyboardHook hook = new KeyboardHook();
         protected System.Timers.Timer timer;
         protected System.Timers.Timer xivWindowTimer;
-        Timer tTimer;
         /// <summary>
         /// オーバーレイがログを出力したときに発生します。
         /// </summary>
@@ -76,22 +75,35 @@ namespace RainbowMage.OverlayPlugin
         /// </summary>
         protected virtual void InitializeOverlay()
         {
-            tTimer = new Timer();
-            tTimer.Tick += TTimer_Tick;
-            tTimer.Interval = 1000;
-            tTimer.Enabled = false;
             try
             {
-                this.Overlay = new OverlayForm("about:blank", this.Config.MaxFrameRate);
+                // FIXME: is this *really* correct way to get version of current assembly?
+                this.Overlay = new OverlayForm(System.Reflection.Assembly.GetExecutingAssembly().GetName().Version.ToString(), this.Name, "about:blank", this.Config.MaxFrameRate);
 
                 // グローバルホットキーを設定
                 if (this.Config.GlobalHotkeyEnabled)
                 {
                     var modifierKeys = GetModifierKey(this.Config.GlobalHotkeyModifiers);
                     var key = this.Config.GlobalHotkey;
+                    var hotkeyType = this.Config.GlobalHotkeyType;
                     if (key != Keys.None)
                     {
-                        hook.KeyPressed += (o, e) => this.Config.IsVisible = !this.Config.IsVisible;
+                        switch (hotkeyType)
+                        {
+                            case GlobalHotkeyType.ToggleVisible:
+                                hook.KeyPressed += (o, e) => this.Config.IsVisible = !this.Config.IsVisible;
+                                break;
+                            case GlobalHotkeyType.ToggleClickthru:
+                                hook.KeyPressed += (o, e) => this.Config.IsClickThru = !this.Config.IsClickThru;
+                                break;
+                            case GlobalHotkeyType.ToggleLock:
+                                hook.KeyPressed += (o, e) => this.Config.IsLocked = !this.Config.IsLocked;
+                                break;
+                            default:
+                                hook.KeyPressed += (o, e) => this.Config.IsVisible = !this.Config.IsVisible;
+                                break;
+                        }
+
                         hook.RegisterHotKey(modifierKeys, key);
                     }
                 }
@@ -132,7 +144,6 @@ namespace RainbowMage.OverlayPlugin
                 if (CheckUrl(this.Config.Url))
                 {
                     Navigate(this.Config.Url);
-                    tTimer.Enabled = true;
                 }
                 else
                 {
@@ -149,12 +160,6 @@ namespace RainbowMage.OverlayPlugin
             {
                 Log(LogLevel.Error, "InitializeOverlay: {0}", this.Name, ex);
             }
-        }
-
-        private void TTimer_Tick(object sender, EventArgs e)
-        {
-            Navigate(Config.Url);
-            tTimer.Enabled = false;
         }
 
         private ModifierKeys GetModifierKey(Keys modifier)
@@ -378,6 +383,10 @@ namespace RainbowMage.OverlayPlugin
             {
                 this.Overlay.Renderer.ExecuteScript(script);
             }
+        }
+
+        public virtual void OverlayMessage(string message)
+        {
         }
     }
 }
